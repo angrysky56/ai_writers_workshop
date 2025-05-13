@@ -179,6 +179,8 @@ This server integrates with:
 
 ### Suggested System Prompt
 
+[And others, avaliable here in project wiki for easy access](https://github.com/angrysky56/ai_writers_workshop/wiki/System-Prompt:-Quantum-Narrative-Architecture-Protocol-(QNAP))
+
 ```markdown
 # System Prompt: """
 
