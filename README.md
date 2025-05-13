@@ -349,4 +349,4 @@ If you encounter issues:
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+[MIT License](https://github.com/angrysky56/ai_writers_workshop/blob/main/LICENSE)
