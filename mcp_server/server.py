@@ -40,6 +40,8 @@ from components.character_manager import CharacterManager
 from components.pattern_manager import PatternManager
 from components.narrative_generator import NarrativeGenerator
 from components.symbolic_manager import SymbolicManager
+from components.knowledge_graph.graph_manager import KnowledgeGraphManager
+from components.plotline_manager import PlotlineManager
 
 # Define output directory 
 OUTPUT_DIR = project_root / "output"
@@ -50,6 +52,8 @@ pattern_manager = PatternManager(OUTPUT_DIR)
 character_manager = CharacterManager(project_manager, OUTPUT_DIR)
 narrative_generator = NarrativeGenerator(project_manager, pattern_manager, OUTPUT_DIR)
 symbolic_manager = SymbolicManager(project_manager, OUTPUT_DIR)
+knowledge_graph = KnowledgeGraphManager(OUTPUT_DIR)
+plotline_manager = PlotlineManager(project_manager, pattern_manager, OUTPUT_DIR)
 
 # Create MCP Server
 mcp = FastMCP(
@@ -225,7 +229,28 @@ def create_project(name: str, description: str, project_type: str = "story") -> 
     Returns:
         Dictionary with project information
     """
-    return project_manager.create_project(name, description, project_type)
+    try:
+        return project_manager.create_project(name, description, project_type)
+    except Exception as e:
+        logger.error(f"Error creating project: {e}")
+        return {"error": f"Failed to create project: {str(e)}"}
+
+@mcp.tool()
+def get_project(project_id: str) -> Dict[str, Any]:
+    """
+    Get detailed information about a specific project.
+    
+    Args:
+        project_id: ID of the project to retrieve
+        
+    Returns:
+        Dictionary with project details
+    """
+    try:
+        return project_manager.get_project(project_id)
+    except Exception as e:
+        logger.error(f"Error retrieving project: {e}")
+        return {"error": f"Failed to retrieve project: {str(e)}"}
 
 @mcp.tool()
 def list_patterns() -> Dict[str, Any]:
@@ -566,6 +591,151 @@ def list_outputs() -> Dict[str, Any]:
         Dictionary with lists of outputs by type
     """
     return project_manager.list_outputs()
+
+# ----- Knowledge Graph Tools -----
+
+@mcp.tool()
+def search_nodes(query: str) -> Dict[str, Any]:
+    """
+    Search for nodes in the knowledge graph based on a query.
+    
+    Args:
+        query: The search query to match against entity names, types, and properties
+        
+    Returns:
+        Dictionary with search results
+    """
+    try:
+        return knowledge_graph.search_nodes(query)
+    except Exception as e:
+        logger.error(f"Error searching nodes: {e}")
+        return {"error": str(e), "query": query, "results": []}
+
+@mcp.tool()
+def open_nodes(names: List[str]) -> Dict[str, Any]:
+    """
+    Open specific nodes in the knowledge graph by their names.
+    
+    Args:
+        names: An array of entity names to retrieve
+        
+    Returns:
+        Dictionary with requested nodes
+    """
+    try:
+        return knowledge_graph.open_nodes(names)
+    except Exception as e:
+        logger.error(f"Error opening nodes: {e}")
+        return {"error": str(e), "names": names, "nodes": {}}
+
+@mcp.tool()
+def read_graph() -> Dict[str, Any]:
+    """
+    Read the entire knowledge graph.
+    
+    Returns:
+        Dictionary with complete graph data
+    """
+    try:
+        return knowledge_graph.read_graph()
+    except Exception as e:
+        logger.error(f"Error reading graph: {e}")
+        return {"error": str(e), "nodes": [], "relations": []}
+
+# ----- Plotline Tools -----
+
+@mcp.tool()
+def list_plotlines() -> Dict[str, Any]:
+    """
+    List available narrative plotlines.
+    
+    Returns:
+        Dictionary with list of plotlines and basic information
+    """
+    return plotline_manager.list_plotlines()
+
+@mcp.tool()
+def get_plotline_details(plotline_name: str) -> Dict[str, Any]:
+    """
+    Get detailed information about a specific narrative plotline.
+    
+    Args:
+        plotline_name: Name of the plotline (e.g., "man_vs_nature", "quest")
+        
+    Returns:
+        Dictionary with detailed plotline information
+    """
+    return plotline_manager.get_plotline_details(plotline_name)
+
+@mcp.tool()
+def create_custom_plotline(name: str, description: str, elements: List[str],
+                         examples: Optional[List[str]] = None,
+                         based_on: Optional[str] = None) -> Dict[str, Any]:
+    """
+    Create a custom narrative plotline.
+    
+    Args:
+        name: Plotline name
+        description: Plotline description
+        elements: List of key narrative elements
+        examples: Optional list of example stories
+        based_on: Optional base plotline to extend
+        
+    Returns:
+        Dictionary with plotline information
+    """
+    return plotline_manager.create_custom_plotline(
+        name=name,
+        description=description,
+        elements=elements,
+        examples=examples,
+        based_on=based_on
+    )
+
+@mcp.tool()
+def develop_plotline(title: str, plotline: str, pattern: str,
+                    characters: Optional[List[str]] = None,
+                    project_id: Optional[str] = None) -> Dict[str, Any]:
+    """
+    Develop a plotline using both a base plotline type and narrative pattern.
+    
+    Args:
+        title: Title for the plotline
+        plotline: Base plotline type (e.g., "quest", "revenge")
+        pattern: Narrative pattern to structure the plotline
+        characters: Optional list of character names to include
+        project_id: Optional project to associate with
+        
+    Returns:
+        Dictionary with plotline development information
+    """
+    return plotline_manager.develop_plotline(
+        title=title,
+        plotline=plotline,
+        pattern=pattern,
+        characters=characters,
+        project_id=project_id
+    )
+
+@mcp.tool()
+def analyze_plotline(plot_points: List[Dict[str, str]], plotline: str,
+                   project_id: Optional[str] = None) -> Dict[str, Any]:
+    """
+    Analyze how well a set of plot points aligns with a plotline structure.
+    
+    Args:
+        plot_points: List of plot point dictionaries, each with 'title' and 'description'
+        plotline: Plotline to analyze against
+        project_id: Optional project to associate with
+        
+    Returns:
+        Dictionary with analysis results
+    """
+    return plotline_manager.analyze_plotline(
+        plot_points=plot_points,
+        plotline=plotline,
+        project_id=project_id
+    )
 
 def main():
     """Run the MCP server."""
