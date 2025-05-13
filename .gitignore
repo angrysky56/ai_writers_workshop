@@ -73,4 +73,4 @@ $RECYCLE.BIN/
 # 5. Project-Specific Output Exclusion Protocol
 # Generated content within output structure
 
-fastagent.config.yaml
+mcp_server/fastagent.config.yaml
