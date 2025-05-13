@@ -1,0 +1,20 @@
+{
+  "name": "Mentor",
+  "description": "A wise guide who provides advice, tools, or special knowledge to the hero.",
+  "traits": [
+    "Wise",
+    "Experienced",
+    "Protective",
+    "Instructive"
+  ],
+  "shadow_aspects": [
+    "Manipulative",
+    "Withholding",
+    "Dogmatic"
+  ],
+  "examples": [
+    "Obi-Wan Kenobi",
+    "Gandalf",
+    "Dumbledore"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "theme": "rebirth",
+  "symbols": [
+    {
+      "symbol": "Phoenix",
+      "meaning": "Rising from ashes, transformation through fire"
+    },
+    {
+      "symbol": "Spring",
+      "meaning": "Renewal after winter, cyclical rebirth"
+    },
+    {
+      "symbol": "Butterfly",
+      "meaning": "Transformation from caterpillar, beauty emerging from confinement"
+    },
+    {
+      "symbol": "Sunrise",
+      "meaning": "New day, fresh beginnings after darkness"
+    }
+  ]
+}

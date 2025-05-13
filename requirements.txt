@@ -1,19 +1,11 @@
-# Core MCP dependency - pin to version 1.7 for compatibility
-mcp[cli]==1.7.0
+# AI Writers Workshop Dependencies
 
-# Ollama integration (optional)
-# No direct Python package needed, uses CLI
+# MCP Protocol
+fastmcp>=1.7.0
 
-# Fast Agent integration (optional)
-fast_agent_mcp>=0.2.23
+# Web Framework
+fastapi>=0.95.0
+uvicorn>=0.22.0
 
-# General requirements
-pyyaml>=6.0
-anyio>=4.0.0
-typing_extensions>=4.7.0
-
-# Development dependencies
-pytest>=7.4.0
-pytest-anyio>=0.0.0
-black>=23.7.0
-setuptools>=80.0.0
+# Data Processing
+pydantic>=1.10.7

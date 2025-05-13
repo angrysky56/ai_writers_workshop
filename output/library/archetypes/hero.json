@@ -1,0 +1,20 @@
+{
+  "name": "Hero",
+  "description": "The main protagonist who embarks on a journey of growth and transformation.",
+  "traits": [
+    "Brave",
+    "Determined",
+    "Selfless",
+    "Growth-oriented"
+  ],
+  "shadow_aspects": [
+    "Egotism",
+    "Martyrdom",
+    "Hubris"
+  ],
+  "examples": [
+    "Luke Skywalker",
+    "Frodo",
+    "Harry Potter"
+  ]
+}

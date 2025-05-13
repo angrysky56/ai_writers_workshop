@@ -1,0 +1,19 @@
+{
+  "name": "Herald",
+  "description": "A character who announces the call to adventure or significant change.",
+  "traits": [
+    "Messenger",
+    "Catalyst",
+    "Announcer",
+    "Signal"
+  ],
+  "shadow_aspects": [
+    "Deceptive",
+    "Manipulative",
+    "Fear-inducing"
+  ],
+  "examples": [
+    "R2-D2 in Star Wars",
+    "The White Rabbit in Alice in Wonderland"
+  ]
+}

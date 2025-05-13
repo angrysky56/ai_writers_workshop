@@ -1,0 +1,23 @@
+{
+  "name": "The Liminal",
+  "description": "A character who exists at the boundaries of conventional character types, simultaneously embodying and rejecting aspects of multiple archetypes. This character resists categorization, demonstrates fluid rather than fixed traits, and evolves through paradoxical rather than linear development.",
+  "traits": [
+    "Ontologically flexible",
+    "Paradoxical",
+    "Self-contradictory",
+    "Boundary-crossing",
+    "Taxonomically resistant"
+  ],
+  "shadow_aspects": [
+    "Complete dissolution",
+    "Categorical rigidity",
+    "Meaningless fragmentation",
+    "Totalizing integration"
+  ],
+  "examples": [
+    "Tristram Shandy",
+    "Orlando in Virginia Woolf's work",
+    "Gregor Samsa in Kafka's Metamorphosis"
+  ],
+  "created_at": "2025-05-13T00:16:34.530750"
+}

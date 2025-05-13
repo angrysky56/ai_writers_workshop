@@ -1,0 +1,19 @@
+{
+  "name": "Trickster",
+  "description": "A character who brings humor, mischief, or chaos.",
+  "traits": [
+    "Playful",
+    "Disruptive",
+    "Clever",
+    "Unpredictable"
+  ],
+  "shadow_aspects": [
+    "Malicious",
+    "Destructive",
+    "Cruel"
+  ],
+  "examples": [
+    "Loki in Norse mythology/Marvel",
+    "The Joker in Batman"
+  ]
+}

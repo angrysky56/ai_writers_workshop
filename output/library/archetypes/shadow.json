@@ -1,0 +1,19 @@
+{
+  "name": "Shadow",
+  "description": "The antagonist or representation of the hero's inner darkness.",
+  "traits": [
+    "Opposing",
+    "Threatening",
+    "Powerful",
+    "Dark mirror"
+  ],
+  "shadow_aspects": [
+    "Destructive",
+    "Corrupt",
+    "Tyrannical"
+  ],
+  "examples": [
+    "Darth Vader in Star Wars",
+    "Sauron in Lord of the Rings"
+  ]
+}

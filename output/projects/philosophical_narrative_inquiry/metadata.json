@@ -1,0 +1,63 @@
+{
+  "name": "Philosophical Narrative Inquiry",
+  "description": "A philosophical exploration of how narrative structures shape human understanding of consciousness, identity, and meaning-making.",
+  "type": "philosophical",
+  "created_at": "2025-05-13T00:07:06.738302",
+  "modified_at": "2025-05-13T00:08:05.578872",
+  "primary_pattern": null,
+  "themes": [],
+  "main_characters": [],
+  "secondary_characters": [],
+  "word_count": 0,
+  "status": "in_progress",
+  "notes": "",
+  "elements": {
+    "characters": [
+      {
+        "id": "philosophical_inquirer_mentor",
+        "name": "Philosophical Inquirer",
+        "path": "projects/philosophical_narrative_inquiry/characters/philosophical_inquirer_mentor.json",
+        "created_at": "2025-05-13T00:07:18.148962"
+      }
+    ],
+    "scenes": [
+      {
+        "id": "scene-epistemological_crisis",
+        "name": "scene-epistemological_crisis",
+        "path": "projects/philosophical_narrative_inquiry/scenes/scene-epistemological_crisis.json",
+        "created_at": "2025-05-13T00:07:34.432588"
+      },
+      {
+        "id": "scene-beyond_categorical_thinking",
+        "name": "scene-beyond_categorical_thinking",
+        "path": "projects/philosophical_narrative_inquiry/scenes/scene-beyond_categorical_thinking.json",
+        "created_at": "2025-05-13T00:07:58.070629"
+      }
+    ],
+    "outlines": [
+      {
+        "id": "outline-the_narrative_structure_of_consciousness",
+        "name": "The Narrative Structure of Consciousness",
+        "path": "projects/philosophical_narrative_inquiry/outlines/outline-the_narrative_structure_of_consciousness.json",
+        "created_at": "2025-05-13T00:07:41.340887"
+      }
+    ],
+    "analyses": [],
+    "symbols": [
+      {
+        "id": "symbols-knowledge",
+        "name": "symbols-knowledge",
+        "path": "projects/philosophical_narrative_inquiry/symbols/symbols-knowledge.json",
+        "created_at": "2025-05-13T00:07:48.221287"
+      }
+    ],
+    "drafts": [
+      {
+        "id": "draft-20250513000805",
+        "name": "The Narrative Structures of Consciousness: A Philosophical Exploration",
+        "path": "projects/philosophical_narrative_inquiry/drafts/draft-20250513000805.json",
+        "created_at": "2025-05-13T00:08:05.578585"
+      }
+    ]
+  }
+}

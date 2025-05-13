@@ -1,0 +1,23 @@
+{
+  "name": "Transformation",
+  "description": "A pattern focused on character or societal change and growth",
+  "stages": [
+    "Status Quo",
+    "Disruption",
+    "Resistance",
+    "Struggle",
+    "Discovery",
+    "Integration",
+    "New Normal"
+  ],
+  "psychological_functions": [
+    "Personal growth",
+    "Acceptance of change",
+    "Evolution of identity"
+  ],
+  "examples": [
+    "A Christmas Carol",
+    "Jane Eyre",
+    "Groundhog Day"
+  ]
+}

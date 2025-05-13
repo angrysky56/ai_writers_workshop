@@ -1,0 +1,21 @@
+{
+  "name": "Voyage and Return",
+  "description": "A journey to an unfamiliar place, followed by a return with new perspective",
+  "stages": [
+    "The Ordinary World",
+    "The Journey Begins",
+    "The Strange New World",
+    "The Challenge",
+    "The Return"
+  ],
+  "psychological_functions": [
+    "Expanding perspective",
+    "Appreciating home/origins",
+    "Adapting to new environments"
+  ],
+  "examples": [
+    "The Wizard of Oz",
+    "Alice in Wonderland",
+    "The Hobbit"
+  ]
+}

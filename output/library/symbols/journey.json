@@ -1,0 +1,21 @@
+{
+  "theme": "journey",
+  "symbols": [
+    {
+      "symbol": "Road",
+      "meaning": "Path of life, choices and direction"
+    },
+    {
+      "symbol": "River",
+      "meaning": "Flow of time, changing yet constant"
+    },
+    {
+      "symbol": "Bridge",
+      "meaning": "Transition, crossing boundaries"
+    },
+    {
+      "symbol": "Map",
+      "meaning": "Guidance, overview of possibilities"
+    }
+  ]
+}

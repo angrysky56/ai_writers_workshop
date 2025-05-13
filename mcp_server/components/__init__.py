@@ -1,23 +1,3 @@
 """
-AI Writing Agency Components
+AI Writers Workshop Components Package
 """
-
-from .core import (
-    ModuleRegistry,
-    ProjectRegistry,
-    Module,
-    Project,
-    Pipeline,
-    ProcessingComponent,
-    initialize_modules
-)
-
-__all__ = [
-    'ModuleRegistry',
-    'ProjectRegistry',
-    'Module',
-    'Project',
-    'Pipeline',
-    'ProcessingComponent',
-    'initialize_modules'
-]

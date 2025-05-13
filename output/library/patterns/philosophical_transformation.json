@@ -1,0 +1,37 @@
+{
+  "name": "Philosophical Transformation",
+  "description": "A narrative pattern that explores the tension between epistemological transformation and the voyage of philosophical inquiry.",
+  "hybrid": true,
+  "component_patterns": {
+    "transformation": 0.7,
+    "voyage_and_return": 0.3
+  },
+  "stages": [
+    "Status Quo",
+    "Disruption",
+    "Resistance",
+    "Struggle",
+    "Discovery",
+    "Integration",
+    "New Normal",
+    "The Ordinary World",
+    "The Journey Begins",
+    "The Strange New World",
+    "The Return"
+  ],
+  "psychological_functions": [
+    "Personal growth",
+    "Acceptance of change",
+    "Evolution of identity",
+    "Expanding perspective",
+    "Appreciating home/origins",
+    "Adapting to new environments"
+  ],
+  "examples": [
+    "A Christmas Carol",
+    "Jane Eyre",
+    "The Wizard of Oz",
+    "Alice in Wonderland"
+  ],
+  "created_at": "2025-05-13T00:07:25.402399"
+}

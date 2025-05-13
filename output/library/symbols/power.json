@@ -1,0 +1,21 @@
+{
+  "theme": "power",
+  "symbols": [
+    {
+      "symbol": "Lion",
+      "meaning": "Strength, leadership, dominance"
+    },
+    {
+      "symbol": "Crown",
+      "meaning": "Authority, rulership, responsibility"
+    },
+    {
+      "symbol": "Mountain",
+      "meaning": "Permanence, solidity, overseeing from height"
+    },
+    {
+      "symbol": "Fire",
+      "meaning": "Transformative energy, destructive or creative force"
+    }
+  ]
+}

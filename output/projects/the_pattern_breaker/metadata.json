@@ -1,0 +1,61 @@
+{
+  "name": "The Pattern Breaker",
+  "description": "A non-linear narrative that deliberately subverts conventional pattern structures, exploring how meaning emerges through fragmentation, recursion, and paradox rather than through predetermined archetypal frameworks.",
+  "type": "experimental",
+  "created_at": "2025-05-13T00:16:25.769997",
+  "modified_at": "2025-05-13T00:17:22.405694",
+  "primary_pattern": null,
+  "themes": [],
+  "main_characters": [],
+  "secondary_characters": [],
+  "word_count": 0,
+  "status": "in_progress",
+  "notes": "",
+  "elements": {
+    "characters": [
+      {
+        "id": "maya_the_liminal",
+        "name": "Maya",
+        "path": "projects/the_pattern_breaker/characters/maya_the_liminal.json",
+        "created_at": "2025-05-13T00:16:39.287270"
+      }
+    ],
+    "scenes": [
+      {
+        "id": "scene-already_in_progress",
+        "name": "scene-already_in_progress",
+        "path": "projects/the_pattern_breaker/scenes/scene-already_in_progress.json",
+        "created_at": "2025-05-13T00:17:05.841762"
+      },
+      {
+        "id": "scene-the_remembered_future",
+        "name": "scene-the_remembered_future",
+        "path": "projects/the_pattern_breaker/scenes/scene-the_remembered_future.json",
+        "created_at": "2025-05-13T00:17:11.321707"
+      },
+      {
+        "id": "scene-origin_after_the_end",
+        "name": "scene-origin_after_the_end",
+        "path": "projects/the_pattern_breaker/scenes/scene-origin_after_the_end.json",
+        "created_at": "2025-05-13T00:17:17.870384"
+      },
+      {
+        "id": "scene-quantum_resolution",
+        "name": "scene-quantum_resolution",
+        "path": "projects/the_pattern_breaker/scenes/scene-quantum_resolution.json",
+        "created_at": "2025-05-13T00:17:22.405185"
+      }
+    ],
+    "outlines": [],
+    "analyses": [],
+    "symbols": [
+      {
+        "id": "symbols-paradoxical_transformation",
+        "name": "symbols-paradoxical_transformation",
+        "path": "projects/the_pattern_breaker/symbols/symbols-paradoxical_transformation.json",
+        "created_at": "2025-05-13T00:16:59.107941"
+      }
+    ],
+    "drafts": []
+  }
+}

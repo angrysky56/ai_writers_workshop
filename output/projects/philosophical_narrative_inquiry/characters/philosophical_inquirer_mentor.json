@@ -1,0 +1,15 @@
+{
+  "name": "Philosophical Inquirer",
+  "archetype": "mentor",
+  "hybrid_archetypes": null,
+  "description": "Philosophical Inquirer is a character based on the mentor archetype.",
+  "traits": [
+    "Analytical",
+    "Self-reflective",
+    "Dialectical",
+    "Ontologically curious"
+  ],
+  "shadow_aspect": "Manipulative",
+  "development_potential": "As a mentor, Philosophical Inquirer has potential for growth through confronting their Manipulative tendencies.",
+  "created_at": "2025-05-13T00:07:18.148962"
+}

@@ -1,0 +1,28 @@
+{
+  "name": "Hero's Journey",
+  "description": "The classic monomyth structure identified by Joseph Campbell",
+  "stages": [
+    "Ordinary World",
+    "Call to Adventure",
+    "Refusal of the Call",
+    "Meeting the Mentor",
+    "Crossing the Threshold",
+    "Tests, Allies, Enemies",
+    "Approach to the Inmost Cave",
+    "Ordeal",
+    "Reward",
+    "The Road Back",
+    "Resurrection",
+    "Return with the Elixir"
+  ],
+  "psychological_functions": [
+    "Self-discovery",
+    "Integration of shadow aspects",
+    "Individuation"
+  ],
+  "examples": [
+    "Star Wars: A New Hope",
+    "The Lord of the Rings",
+    "The Matrix"
+  ]
+}

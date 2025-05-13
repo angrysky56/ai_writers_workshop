@@ -1,8 +1,139 @@
-# AI Writers Workshop MCP Server
+# AI Writers Workshop
 
-A Model Context Protocol (MCP) server that provides narrative, character, and archetypal storytelling tools to AI assistants.
+A Model Context Protocol (MCP) server that provides narrative, character, and archetypal storytelling tools to AI assistants using the Meta-Cognitive Narrative Architecture.
 
-[Demo Story](https://github.com/angrysky56/ai_writers_workshop/wiki)
+## Features
+
+- Project-centric hierarchical organization of narrative elements
+- Character creation and development with archetypal frameworks
+- Narrative pattern analysis and application
+- Scene and outline generation
+- Symbolic and thematic connections
+- Story compilation and export
+
+## Architecture
+
+The AI Writers Workshop is built with a modular architecture that separates concerns into specialized components:
+
+### Core Components
+
+- **Project Manager**: Handles project creation, organization, and file storage with a hierarchical structure
+- **Character Manager**: Manages character creation and development with archetypal frameworks
+- **Pattern Manager**: Handles narrative patterns and their application to story structures
+- **Narrative Generator**: Manages scene generation, outlines, and story compilation
+- **Symbolic Manager**: Handles symbolic connections and thematic resonance
+
+### Directory Structure
+
+```
+output/
+├── library/           # Shared/reusable elements
+│   ├── archetypes/    # Character archetype definitions
+│   ├── patterns/      # Narrative pattern definitions
+│   └── symbols/       # Symbol theme definitions
+│
+├── projects/
+│   ├── project1/
+│   │   ├── metadata.json     # Project metadata and references
+│   │   ├── characters/       # Characters for this specific project
+│   │   ├── scenes/           # Scenes for this specific project
+│   │   ├── outlines/         # Outlines for this specific project
+│   │   ├── analyses/         # Analyses for this specific project
+│   │   ├── symbols/          # Symbols for this specific project
+│   │   └── drafts/           # Compiled narratives
+│   └── project2/
+│       └── ...
+│
+└── legacy/            # For backward compatibility
+    ├── characters/    # Character files from old flat structure
+    ├── scenes/        # Scene files from old flat structure
+    ├── outlines/      # Outline files from old flat structure
+    ├── analyses/      # Analysis files from old flat structure
+    └── symbols/       # Symbol files from old flat structure
+```
+
+## Tool Usage
+
+All tools now support project-based organization:
+
+```python
+# Create a project
+create_project(
+    name="Epic Adventure",
+    description="An epic journey of discovery",
+    project_type="novel"
+)
+
+# Create a character in the project
+create_character(
+    name="Hero",
+    archetype="hero",
+    traits=["Brave", "Curious"],
+    project_id="epic_adventure"  # Associate with project
+)
+
+# Generate a scene in the project
+generate_scene(
+    scene_title="The Call",
+    pattern_stage="Call to Adventure",
+    characters=["Hero"],
+    project_id="epic_adventure"  # Associate with project
+)
+
+# Compile a narrative from project elements
+compile_narrative(
+    project_id="epic_adventure",
+    format="markdown"
+)
+```
+
+## Enhanced Features
+
+### Flexible Pattern Application
+
+Patterns can be applied with varying levels of adherence, allowing for more creative flexibility:
+
+```python
+analyze_narrative(
+    scenes=scenes,
+    pattern_name="heroes_journey",
+    adherence_level=0.7  # Only 70% of pattern stages required
+)
+```
+
+### Hybrid Characters
+
+Characters can now be created as hybrids of multiple archetypes:
+
+```python
+create_character(
+    name="Complex Hero",
+    archetype="hero",
+    hybrid_archetypes={
+        "hero": 0.6,
+        "trickster": 0.4
+    }
+)
+```
+
+### Custom Patterns and Archetypes
+
+Create your own patterns and archetypes:
+
+```python
+create_custom_pattern(
+    name="Redemption Arc",
+    description="A pattern focused on moral transformation",
+    stages=["Flawed State", "Catalyst", "Crisis", "Choice", "Redemption"]
+)
+
+create_custom_archetype(
+    name="Anti-Hero",
+    description="A protagonist who lacks conventional heroic attributes",
+    traits=["Cynical", "Pragmatic", "Morally Gray", "Self-Serving"],
+    shadow_aspects=["True Villainy", "Irredeemability"]
+)
+```
 
 ## 📋 Overview
 
@@ -215,7 +346,7 @@ Run the setup script to create a virtual environment and install dependencies:
 ./run_server.sh inspect
 ```
 
-#### Manual Setup
+### Manual Setup
 
 If you prefer to set up manually:
 

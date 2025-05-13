@@ -1,0 +1,19 @@
+{
+  "name": "Threshold Guardian",
+  "description": "A character who tests the hero's commitment and readiness to enter the special world.",
+  "traits": [
+    "Challenging",
+    "Testing",
+    "Protective",
+    "Gatekeeping"
+  ],
+  "shadow_aspects": [
+    "Blocking",
+    "Inflexible",
+    "Judgmental"
+  ],
+  "examples": [
+    "The Doorman in The Wizard of Oz",
+    "The Three-Headed Dog in Harry Potter"
+  ]
+}

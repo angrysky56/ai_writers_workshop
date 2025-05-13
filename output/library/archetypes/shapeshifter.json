@@ -1,0 +1,19 @@
+{
+  "name": "Shapeshifter",
+  "description": "A character whose loyalty or identity is uncertain or changing.",
+  "traits": [
+    "Mysterious",
+    "Changeable",
+    "Unpredictable",
+    "Ambiguous"
+  ],
+  "shadow_aspects": [
+    "Treacherous",
+    "Inconsistent",
+    "Untrustworthy"
+  ],
+  "examples": [
+    "Severus Snape in Harry Potter",
+    "Catwoman in Batman"
+  ]
+}
