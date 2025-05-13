@@ -4,27 +4,6 @@ A Model Context Protocol (MCP) server that provides narrative, character, and ar
 
 [Demo Story](https://github.com/angrysky56/ai_writers_workshop/wiki)
 
-## 🚀 Quick Start
-
-Run the setup script to create a virtual environment and install dependencies:
-
-```bash
-# Setup the environment
-./run_server.sh setup
-
-# Check the status
-./run_server.sh status
-
-# Optional: Install Fast Agent integration
-./setup_fastagent.sh
-
-# Install in Claude Desktop
-./run_server.sh install
-
-# Run with MCP Inspector for testing
-./run_server.sh inspect
-```
-
 ## 📋 Overview
 
 The AI Writers Workshop MCP server exposes a set of storytelling tools focused on:
@@ -201,10 +180,11 @@ Maintain awareness of these philosophical limitations:
 
 Your objective is to facilitate narrative development through structured analytical frameworks while maintaining psychological depth and creative authenticity.
 """
-
 ```
 
-#### Using the Setup Script may be needed
+#### Using the Setup Script may be needed if the server doesn't auto-install
+
+## 🚀 Quick Start- you may need uv
 
 The easiest way to set up is using the provided shell script:
 
@@ -214,6 +194,25 @@ The easiest way to set up is using the provided shell script:
 
 # Optional: Install Fast Agent integration- I am not sure this is needed.
 ./setup_fastagent.sh
+```
+
+Run the setup script to create a virtual environment and install dependencies:
+
+```bash
+# Setup the environment
+./run_server.sh setup
+
+# Check the status
+./run_server.sh status
+
+# Optional: Install Fast Agent integration
+./setup_fastagent.sh
+
+# Install in Claude Desktop
+./run_server.sh install
+
+# Run with MCP Inspector for testing
+./run_server.sh inspect
 ```
 
 #### Manual Setup
