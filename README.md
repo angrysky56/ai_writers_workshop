@@ -2,6 +2,8 @@
 
 A Model Context Protocol (MCP) server that provides narrative, character, and archetypal storytelling tools to AI assistants.
 
+[Demo Story](https://github.com/angrysky56/ai_writers_workshop/wiki)
+
 ## 🚀 Quick Start
 
 Run the setup script to create a virtual environment and install dependencies:
