@@ -26,4 +26,5 @@ site/
 *.tmp
 *.orig
 
+output/**
 mcp_server/fastagent.config.yaml
