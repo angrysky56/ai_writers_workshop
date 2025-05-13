@@ -1,0 +1,102 @@
+{
+  "name": "Transformation",
+  "structure": [
+    "Status Quo",
+    "Disruption",
+    "Resistance",
+    "Struggle",
+    "Discovery",
+    "Integration",
+    "New Normal"
+  ],
+  "description": "A narrative pattern focused on personal or societal change and growth.",
+  "psychological_functions": [
+    "Personal growth",
+    "Acceptance of change",
+    "Evolution of identity",
+    "Integration of new perspectives"
+  ],
+  "examples": [
+    {
+      "title": "A Christmas Carol",
+      "protagonist": "Ebenezer Scrooge",
+      "description": "Scrooge's transformation from a miser to a generous person through supernatural intervention."
+    },
+    {
+      "title": "Groundhog Day",
+      "protagonist": "Phil Connors",
+      "description": "Phil's transformation from a cynical weatherman to a better person through repeated living of the same day."
+    },
+    {
+      "title": "Jane Eyre",
+      "protagonist": "Jane Eyre",
+      "description": "Jane's transformation through adversity to find her own autonomy and ultimate happiness."
+    }
+  ],
+  "key_characteristics": [
+    "Focus on internal change rather than external challenges",
+    "Often involves identity crisis and resolution",
+    "Character begins in a flawed or limited state",
+    "Character resists change initially",
+    "Character must lose something to gain something greater",
+    "Ends with a new equilibrium that incorporates the transformation"
+  ],
+  "structure_details": {
+    "Status Quo": {
+      "description": "The initial stable condition before transformation",
+      "function": "Establish character flaws or limitations",
+      "examples": [
+        "Scrooge as a miser",
+        "Phil Connors as selfish and cynical"
+      ]
+    },
+    "Disruption": {
+      "description": "An event that challenges the status quo",
+      "function": "Force character out of comfort zone",
+      "examples": [
+        "Visit from Marley's ghost",
+        "Time loop begins"
+      ]
+    },
+    "Resistance": {
+      "description": "Character fights against the needed change",
+      "function": "Demonstrate the strength of character flaws",
+      "examples": [
+        "Scrooge dismisses the first ghost's lessons",
+        "Phil exploits the time loop for selfish gains"
+      ]
+    },
+    "Struggle": {
+      "description": "Character experiences difficulty in process of change",
+      "function": "Show cost of transformation",
+      "examples": [
+        "Scrooge confronts painful memories",
+        "Phil experiences depression and suicide attempts"
+      ]
+    },
+    "Discovery": {
+      "description": "Character has insight or revelation",
+      "function": "Provide psychological breakthrough",
+      "examples": [
+        "Scrooge sees his own grave",
+        "Phil discovers meaning through helping others"
+      ]
+    },
+    "Integration": {
+      "description": "Character begins to embody new values or identity",
+      "function": "Show internal change manifesting externally",
+      "examples": [
+        "Scrooge begins to treat others differently",
+        "Phil becomes skilled at piano, ice sculpture, etc."
+      ]
+    },
+    "New Normal": {
+      "description": "Character establishes a new equilibrium",
+      "function": "Demonstrate transformation is complete and sustainable",
+      "examples": [
+        "Scrooge becomes generous and loving",
+        "Phil escapes time loop as a better person"
+      ]
+    }
+  }
+}

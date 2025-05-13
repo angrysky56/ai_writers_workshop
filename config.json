@@ -1,0 +1,27 @@
+{
+  "server": {
+    "name": "AI Writers Workshop",
+    "description": "MCP Server for narrative and character development tools",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "resources_dir": "./resources",
+    "prompts_dir": "./prompts",
+    "data_dir": "./data"
+  },
+  "integrations": {
+    "ollama": {
+      "enabled": true,
+      "default_model": "llama3"
+    },
+    "fast_agent": {
+      "enabled": true,
+      "config_path": "./mcp_server/fastagent.config.yaml",
+      "default_model": "generic.qwen3:30b-a3b"
+    }
+  },
+  "logging": {
+    "level": "INFO",
+    "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  }
+}

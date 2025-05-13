@@ -1,0 +1,18 @@
+{
+  "name": "Hero's Journey",
+  "structure": [
+    "Ordinary World",
+    "Call to Adventure",
+    "Refusal of the Call",
+    "Meeting the Mentor",
+    "Crossing the Threshold",
+    "Tests, Allies, Enemies",
+    "Approach to the Inmost Cave",
+    "Ordeal",
+    "Reward",
+    "The Road Back",
+    "Resurrection",
+    "Return with the Elixir"
+  ],
+  "description": "The classic monomyth structure identified by Joseph Campbell."
+}

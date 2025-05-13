@@ -1,0 +1,14 @@
+{
+  "name": "Keeper Vex",
+  "archetype": "threshold_guardian",
+  "description": "Keeper Vex is a character based on the threshold_guardian archetype.",
+  "traits": [
+    "Intimidating",
+    "Dutiful",
+    "Ancient",
+    "Mysterious"
+  ],
+  "shadow_aspect": "Blocking",
+  "development_potential": "As a threshold_guardian, Keeper Vex has potential for growth through confronting their Blocking tendencies.",
+  "created_at": "2025-05-12T21:11:48.064011"
+}

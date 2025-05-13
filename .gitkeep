@@ -1,0 +1,27 @@
+# Preserve directory structure with .gitkeep
+output//.json
+output/projects//
+!output//README.md
+!output/**/.gitkeep
+# Log files
+*.log
+logs/
+# Local configuration overrides
+config.local.json
+.secret.
+# MCP server temporary files
+.mcp_cache/
+mcp_session_*.json
+# 6. Deployment and Package Management Artifacts
+# Distribution / packaging
+*.manifest
+*.spec
+pip-log.txt
+pip-delete-this-directory.txt
+# Documentation builds
+docs/_build/
+site/
+# Backup files
+*.bak
+*.tmp
+*.orig

@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "ai-writers-workshop": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/home/ty/Repositories/ai_workspace/ai_writers_workshop/mcp_server",
+        "server.py"
+      ]
+    }
+  }
+}

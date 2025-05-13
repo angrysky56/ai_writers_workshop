@@ -1,0 +1,74 @@
+# AI Writers Workshop .gitignore
+# Conceptual Framework: Version Control Exclusion Protocol
+# 1. Python-Specific Compilation Artifacts
+pycache/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+# 2. Environmental Configuration Spaces
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+# Local development settings
+.python-version
+.coverage
+htmlcov/
+.tox/
+.nox/
+.hypothesis/
+.pytest_cache/
+.ruff_cache/
+pyrightconfig.json
+# 3. Integrated Development Environment Artifacts
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json.example
+!.vscode/tasks.json.example
+!.vscode/launch.json.example
+!.vscode/extensions.json.example
+# PyCharm/JetBrains
+.idea/
+*.iml
+*.ipr
+*.iws
+# Jupyter Notebook
+.ipynb_checkpoints
+#4. Operating System Metadata Structures
+# MacOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+# Linux
+~
+.directory
+.Trash-
+# 5. Project-Specific Output Exclusion Protocol
+# Generated content within output structure

@@ -1,0 +1,14 @@
+{
+  "name": "Professor Ebon Whispercall",
+  "archetype": "mentor",
+  "description": "Professor Ebon Whispercall is a character based on the mentor archetype.",
+  "traits": [
+    "Wise",
+    "Secretive",
+    "Conflicted",
+    "Ancient"
+  ],
+  "shadow_aspect": "Manipulative",
+  "development_potential": "As a mentor, Professor Ebon Whispercall has potential for growth through confronting their Manipulative tendencies.",
+  "created_at": "2025-05-12T21:11:45.329907"
+}

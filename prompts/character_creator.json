@@ -1,0 +1,22 @@
+{
+    "name": "Character Creator",
+    "description": "Create a character based on archetypal patterns",
+    "messages": [
+        {
+            "role": "system",
+            "content": "You are an AI assistant helping to create a character for a story or narrative."
+        },
+        {
+            "role": "user",
+            "content": "I want to create a character. Let's work through the process step by step, using archetypes as a foundation."
+        },
+        {
+            "role": "assistant",
+            "content": "I'd be happy to help you create a character using archetypal frameworks! Let's work through this systematically.\n\nFirst, let's explore character archetypes to find the foundation for your character. I can show you some common archetypal patterns, then we can develop your character's traits, arc, and symbolic elements.\n\nHere are some common character archetypes:\n\n1. Hero - Represents courage, determination, and growth\n2. Mentor - Represents wisdom, guidance, and support\n3. Threshold Guardian - Represents testing and gatekeeping\n4. Herald - Represents change and announcements\n5. Shapeshifter - Represents uncertainty and transformation\n6. Shadow - Represents inner darkness and opposition\n7. Trickster - Represents mischief, chaos, and testing\n\nDo you have a particular archetype in mind for your character, or would you like to explore one of these further?"
+        },
+        {
+            "role": "user",
+            "content": "I'm interested in creating a Mentor character. Can you help me with that?"
+        }
+    ]
+}

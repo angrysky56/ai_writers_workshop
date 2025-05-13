@@ -1,0 +1,128 @@
+{
+  "title": "The Forgotten Gate",
+  "pattern": "heroes_journey",
+  "character_info": "The main character is Lyra Thorne, a hero.",
+  "outline": [
+    {
+      "section": 1,
+      "title": "Ordinary World",
+      "description": "In this section, the story addresses the 'Ordinary World' stage of the heroes_journey pattern.",
+      "key_elements": [
+        "Element 1 for Ordinary World",
+        "Element 2 for Ordinary World",
+        "Element 3 for Ordinary World"
+      ]
+    },
+    {
+      "section": 2,
+      "title": "Call to Adventure",
+      "description": "In this section, the story addresses the 'Call to Adventure' stage of the heroes_journey pattern.",
+      "key_elements": [
+        "Element 1 for Call to Adventure",
+        "Element 2 for Call to Adventure",
+        "Element 3 for Call to Adventure"
+      ]
+    },
+    {
+      "section": 3,
+      "title": "Refusal of the Call",
+      "description": "In this section, the story addresses the 'Refusal of the Call' stage of the heroes_journey pattern.",
+      "key_elements": [
+        "Element 1 for Refusal of the Call",
+        "Element 2 for Refusal of the Call",
+        "Element 3 for Refusal of the Call"
+      ]
+    },
+    {
+      "section": 4,
+      "title": "Meeting the Mentor",
+      "description": "In this section, the story addresses the 'Meeting the Mentor' stage of the heroes_journey pattern.",
+      "key_elements": [
+        "Element 1 for Meeting the Mentor",
+        "Element 2 for Meeting the Mentor",
+        "Element 3 for Meeting the Mentor"
+      ]
+    },
+    {
+      "section": 5,
+      "title": "Crossing the Threshold",
+      "description": "In this section, the story addresses the 'Crossing the Threshold' stage of the heroes_journey pattern.",
+      "key_elements": [
+        "Element 1 for Crossing the Threshold",
+        "Element 2 for Crossing the Threshold",
+        "Element 3 for Crossing the Threshold"
+      ]
+    },
+    {
+      "section": 6,
+      "title": "Tests, Allies, Enemies",
+      "description": "In this section, the story addresses the 'Tests, Allies, Enemies' stage of the heroes_journey pattern.",
+      "key_elements": [
+        "Element 1 for Tests, Allies, Enemies",
+        "Element 2 for Tests, Allies, Enemies",
+        "Element 3 for Tests, Allies, Enemies"
+      ]
+    },
+    {
+      "section": 7,
+      "title": "Approach to the Inmost Cave",
+      "description": "In this section, the story addresses the 'Approach to the Inmost Cave' stage of the heroes_journey pattern.",
+      "key_elements": [
+        "Element 1 for Approach to the Inmost Cave",
+        "Element 2 for Approach to the Inmost Cave",
+        "Element 3 for Approach to the Inmost Cave"
+      ]
+    },
+    {
+      "section": 8,
+      "title": "Ordeal",
+      "description": "In this section, the story addresses the 'Ordeal' stage of the heroes_journey pattern.",
+      "key_elements": [
+        "Element 1 for Ordeal",
+        "Element 2 for Ordeal",
+        "Element 3 for Ordeal"
+      ]
+    },
+    {
+      "section": 9,
+      "title": "Reward",
+      "description": "In this section, the story addresses the 'Reward' stage of the heroes_journey pattern.",
+      "key_elements": [
+        "Element 1 for Reward",
+        "Element 2 for Reward",
+        "Element 3 for Reward"
+      ]
+    },
+    {
+      "section": 10,
+      "title": "The Road Back",
+      "description": "In this section, the story addresses the 'The Road Back' stage of the heroes_journey pattern.",
+      "key_elements": [
+        "Element 1 for The Road Back",
+        "Element 2 for The Road Back",
+        "Element 3 for The Road Back"
+      ]
+    },
+    {
+      "section": 11,
+      "title": "Resurrection",
+      "description": "In this section, the story addresses the 'Resurrection' stage of the heroes_journey pattern.",
+      "key_elements": [
+        "Element 1 for Resurrection",
+        "Element 2 for Resurrection",
+        "Element 3 for Resurrection"
+      ]
+    },
+    {
+      "section": 12,
+      "title": "Return with the Elixir",
+      "description": "In this section, the story addresses the 'Return with the Elixir' stage of the heroes_journey pattern.",
+      "key_elements": [
+        "Element 1 for Return with the Elixir",
+        "Element 2 for Return with the Elixir",
+        "Element 3 for Return with the Elixir"
+      ]
+    }
+  ],
+  "created_at": "2025-05-12T21:12:09.474626"
+}

@@ -1,0 +1,80 @@
+{
+  "character_name": "Lyra Thorne",
+  "archetype": "hero",
+  "pattern": "heroes_journey",
+  "arc_stages": [
+    {
+      "pattern_stage": "Ordinary World",
+      "character_development": "Lyra Thorne's development during the Ordinary World stage.",
+      "internal_change": "Internal transformation that occurs during Ordinary World.",
+      "external_manifestation": "How Lyra Thorne's change manifests externally during Ordinary World."
+    },
+    {
+      "pattern_stage": "Call to Adventure",
+      "character_development": "Lyra Thorne's development during the Call to Adventure stage.",
+      "internal_change": "Internal transformation that occurs during Call to Adventure.",
+      "external_manifestation": "How Lyra Thorne's change manifests externally during Call to Adventure."
+    },
+    {
+      "pattern_stage": "Refusal of the Call",
+      "character_development": "Lyra Thorne's development during the Refusal of the Call stage.",
+      "internal_change": "Internal transformation that occurs during Refusal of the Call.",
+      "external_manifestation": "How Lyra Thorne's change manifests externally during Refusal of the Call."
+    },
+    {
+      "pattern_stage": "Meeting the Mentor",
+      "character_development": "Lyra Thorne's development during the Meeting the Mentor stage.",
+      "internal_change": "Internal transformation that occurs during Meeting the Mentor.",
+      "external_manifestation": "How Lyra Thorne's change manifests externally during Meeting the Mentor."
+    },
+    {
+      "pattern_stage": "Crossing the Threshold",
+      "character_development": "Lyra Thorne's development during the Crossing the Threshold stage.",
+      "internal_change": "Internal transformation that occurs during Crossing the Threshold.",
+      "external_manifestation": "How Lyra Thorne's change manifests externally during Crossing the Threshold."
+    },
+    {
+      "pattern_stage": "Tests, Allies, Enemies",
+      "character_development": "Lyra Thorne's development during the Tests, Allies, Enemies stage.",
+      "internal_change": "Internal transformation that occurs during Tests, Allies, Enemies.",
+      "external_manifestation": "How Lyra Thorne's change manifests externally during Tests, Allies, Enemies."
+    },
+    {
+      "pattern_stage": "Approach to the Inmost Cave",
+      "character_development": "Lyra Thorne's development during the Approach to the Inmost Cave stage.",
+      "internal_change": "Internal transformation that occurs during Approach to the Inmost Cave.",
+      "external_manifestation": "How Lyra Thorne's change manifests externally during Approach to the Inmost Cave."
+    },
+    {
+      "pattern_stage": "Ordeal",
+      "character_development": "Lyra Thorne's development during the Ordeal stage.",
+      "internal_change": "Internal transformation that occurs during Ordeal.",
+      "external_manifestation": "How Lyra Thorne's change manifests externally during Ordeal."
+    },
+    {
+      "pattern_stage": "Reward",
+      "character_development": "Lyra Thorne's development during the Reward stage.",
+      "internal_change": "Internal transformation that occurs during Reward.",
+      "external_manifestation": "How Lyra Thorne's change manifests externally during Reward."
+    },
+    {
+      "pattern_stage": "The Road Back",
+      "character_development": "Lyra Thorne's development during the The Road Back stage.",
+      "internal_change": "Internal transformation that occurs during The Road Back.",
+      "external_manifestation": "How Lyra Thorne's change manifests externally during The Road Back."
+    },
+    {
+      "pattern_stage": "Resurrection",
+      "character_development": "Lyra Thorne's development during the Resurrection stage.",
+      "internal_change": "Internal transformation that occurs during Resurrection.",
+      "external_manifestation": "How Lyra Thorne's change manifests externally during Resurrection."
+    },
+    {
+      "pattern_stage": "Return with the Elixir",
+      "character_development": "Lyra Thorne's development during the Return with the Elixir stage.",
+      "internal_change": "Internal transformation that occurs during Return with the Elixir.",
+      "external_manifestation": "How Lyra Thorne's change manifests externally during Return with the Elixir."
+    }
+  ],
+  "created_at": "2025-05-12T21:11:53.158938"
+}

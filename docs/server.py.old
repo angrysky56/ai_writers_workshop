@@ -1,0 +1,789 @@
+#!/usr/bin/env python
+"""
+MCP Server for AI Writers Workshop
+
+This module provides the core MCP server implementation for the AI Writers Workshop,
+exposing narrative, character, and archetypal pattern capabilities through the
+Model Context Protocol (MCP).
+"""
+
+import os
+import sys
+import json
+import logging
+import asyncio
+import argparse
+from pathlib import Path
+from typing import Dict, List, Any, Optional, Union
+
+try:
+    from mcp.server import Server
+    from mcp.sse import SseTransport
+    from mcp.stdio import StdioTransport
+    from mcp.types import TextContent, EmbeddedResource, ResourceMetadata, ReadResourceResult
+except ImportError:
+    print("Error: MCP Python SDK not installed. Please install with 'pip install mcp-sdk'")
+    sys.exit(1)
+
+# Set up logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger("mcp_server")
+
+# Try to import the AI Writing Agency components
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+try:
+    from AI_writing_agency.components.archetypal_framework import archetypal_framework
+    FRAMEWORK_AVAILABLE = True
+except ImportError:
+    logger.warning("AI Writing Agency framework not available. Using mock data.")
+    FRAMEWORK_AVAILABLE = False
+    # Create a mock framework for testing
+    class MockArchetypalFramework:
+        def __init__(self):
+            self.patterns = {
+                "Hero's Journey": type('obj', (object,), {
+                    'name': "Hero's Journey",
+                    'structure': ["Call to Adventure", "Refusal of the Call", "Meeting the Mentor", 
+                                 "Crossing the Threshold", "Tests, Allies, Enemies", "Approach to the Inmost Cave",
+                                 "Ordeal", "Reward", "The Road Back", "Resurrection", "Return with the Elixir"],
+                    'psychological_functions': ["Self-discovery", "Integration of shadow aspects", "Individuation"],
+                    'variations': ["Overcoming the Monster", "Rags to Riches", "Quest", "Voyage and Return"],
+                    'description': "The classic monomyth structure identified by Joseph Campbell."
+                }),
+                "Transformation": type('obj', (object,), {
+                    'name': "Transformation",
+                    'structure': ["Status Quo", "Disruption", "Resistance", "Struggle", "Discovery", "Integration", "New Normal"],
+                    'psychological_functions': ["Personal growth", "Acceptance of change", "Evolution of identity"],
+                    'variations': ["Coming of Age", "Rebirth", "Metamorphosis"],
+                    'description': "A narrative pattern focused on personal or societal change."
+                })
+            }
+            self.character_archetypes = {
+                "Hero": type('obj', (object,), {
+                    'name': "Hero",
+                    'typical_traits': ["Courage", "Determination", "Selflessness", "Competence"],
+                    'functions': ["Represents the ego's search for identity and wholeness"],
+                    'shadow_aspects': ["Arrogance", "Martyrdom", "Hubris"],
+                    'variations': ["Reluctant Hero", "Anti-Hero", "Tragic Hero"]
+                }),
+                "Mentor": type('obj', (object,), {
+                    'name': "Mentor",
+                    'typical_traits': ["Wisdom", "Guidance", "Protection", "Teaching"],
+                    'functions': ["Represents higher self or unconscious wisdom"],
+                    'shadow_aspects': ["Manipulation", "Dogmatism", "Dependency-creation"],
+                    'variations': ["Wise Old Man/Woman", "Fallen Mentor", "Dark Mentor"]
+                })
+            }
+            self.symbolic_systems = {
+                "Natural Elements": type('obj', (object,), {
+                    'name': "Natural Elements",
+                    'description': "Symbols derived from nature and natural phenomena",
+                    'categories': {
+                        "Elements": {"Fire": "Transformation, passion", "Water": "Emotion, intuition"},
+                        "Weather": {"Storm": "Conflict, emotional turmoil", "Sunshine": "Hope, clarity"}
+                    }
+                }),
+                "Colors": type('obj', (object,), {
+                    'name': "Colors",
+                    'description': "Color symbolism across cultures",
+                    'categories': {
+                        "Primary Colors": {"Red": "Passion, danger", "Blue": "Tranquility, depth"},
+                        "Other Colors": {"Green": "Growth, envy", "Black": "Death, mystery"}
+                    }
+                })
+            }
+        
+        def get_pattern(self, name):
+            return self.patterns.get(name)
+        
+        def get_character_archetype(self, name):
+            return self.character_archetypes.get(name)
+        
+        def get_symbolic_system(self, name):
+            return self.symbolic_systems.get(name)
+        
+        def find_patterns_by_theme(self, theme):
+            # Mock implementation
+            return list(self.patterns.values())[:2]
+        
+        def analyze_narrative_structure(self, scenes):
+            # Mock implementation
+            return {
+                "dominant_pattern": "Hero's Journey",
+                "coherence": 0.8,
+                "structure_analysis": {
+                    "strengths": ["Clear character arc", "Well-defined obstacles"],
+                    "weaknesses": ["Missing key threshold moment", "Underdeveloped return phase"]
+                }
+            }
+        
+        def generate_symbolic_associations(self, theme, count=3):
+            # Mock implementation
+            return [
+                {"symbol": "Fire", "system": "Natural Elements", "category": "Elements", "meaning": "Transformation and renewal"},
+                {"symbol": "Red", "system": "Colors", "category": "Primary Colors", "meaning": "Passion and intensity"},
+                {"symbol": "Circle", "system": "Shapes", "category": "Basic Shapes", "meaning": "Wholeness and completion"}
+            ][:count]
+        
+        def create_default_files(self):
+            # Mock implementation
+            pass
+    
+    archetypal_framework = MockArchetypalFramework()
+
+
+class MCPAiWritersWorkshopServer:
+    """
+    MCP Server for AI Writers Workshop.
+    
+    This class implements a Model Context Protocol (MCP) server that provides access to
+    the AI Writers Workshop's archetypal narrative framework, character development tools,
+    and symbolic systems through the MCP interface.
+    """
+    
+    def __init__(self, config_path: Optional[str] = None):
+        """
+        Initialize the MCP server.
+        
+        Args:
+            config_path: Path to configuration file (optional)
+        """
+        self.config = self._load_config(config_path)
+        
+        # Initialize the MCP server
+        self.server = Server(
+            name=self.config.get("server_name", "AI Writers Workshop"),
+            description=self.config.get("server_description", 
+                "MCP Server for archetypal narrative development and character creation")
+        )
+        
+        # Register resources
+        self._register_resources()
+        
+        # Register tools
+        self._register_tools()
+        
+        # Register prompts
+        self._register_prompts()
+        
+        logger.info(f"MCP server initialized: {self.server.name}")
+        
+    def _load_config(self, config_path: Optional[str] = None) -> Dict[str, Any]:
+        """
+        Load server configuration.
+        
+        Args:
+            config_path: Path to configuration file
+            
+        Returns:
+            Configuration dictionary
+        """
+        default_config = {
+            "server_name": "AI Writers Workshop",
+            "server_description": "MCP Server for archetypal narrative development and character creation",
+            "resource_dir": "./resources",
+            "prompt_dir": "./prompts",
+            "log_level": "INFO"
+        }
+        
+        if not config_path:
+            return default_config
+        
+        try:
+            with open(config_path, 'r') as f:
+                config = json.load(f)
+                return {**default_config, **config}
+        except Exception as e:
+            logger.warning(f"Error loading configuration from {config_path}: {e}")
+            logger.warning("Using default configuration")
+            return default_config
+    
+    def _register_resources(self):
+        """Register resources with the MCP server."""
+        resource_dir = Path(self.config.get("resource_dir", "./resources"))
+        
+        # Ensure resource directory exists
+        resource_dir.mkdir(exist_ok=True, parents=True)
+        
+        # Register the resource directory with the server
+        self.server.resource_dir(
+            str(resource_dir),
+            uri_base="resources://ai-writers-workshop"
+        )
+        
+        logger.info(f"Registered resource directory: {resource_dir}")
+    
+    def _register_tools(self):
+        """Register tools with the MCP server."""
+        # Narrative structure tools
+        self.server.tool(self.list_patterns)
+        self.server.tool(self.get_pattern)
+        self.server.tool(self.analyze_narrative)
+        self.server.tool(self.generate_outline)
+        
+        # Character tools
+        self.server.tool(self.list_archetypes)
+        self.server.tool(self.get_archetype)
+        self.server.tool(self.create_character)
+        self.server.tool(self.develop_character_arc)
+        
+        # Symbolic system tools
+        self.server.tool(self.list_symbolic_systems)
+        self.server.tool(self.get_symbols_for_theme)
+        self.server.tool(self.develop_symbolic_progression)
+        
+        logger.info("Registered MCP tools")
+    
+    def _register_prompts(self):
+        """Register prompts with the MCP server."""
+        # Archetypal patterns reference
+        patterns_info = "# Archetypal Narrative Patterns\n\n"
+        for name, pattern in archetypal_framework.patterns.items():
+            patterns_info += f"## {name}\n\n"
+            patterns_info += f"{pattern.description}\n\n"
+            patterns_info += "**Structure:**\n"
+            for element in pattern.structure:
+                patterns_info += f"- {element}\n"
+            patterns_info += "\n"
+            
+            patterns_info += "**Psychological Functions:**\n"
+            for function in pattern.psychological_functions:
+                patterns_info += f"- {function}\n"
+            patterns_info += "\n"
+        
+        self.server.prompt("patterns_reference", [
+            TextContent(type="text", text=patterns_info)
+        ])
+        
+        # Character archetypes reference
+        archetypes_info = "# Character Archetypes\n\n"
+        for name, archetype in archetypal_framework.character_archetypes.items():
+            archetypes_info += f"## {name}\n\n"
+            archetypes_info += "**Typical Traits:**\n"
+            for trait in archetype.typical_traits:
+                archetypes_info += f"- {trait}\n"
+            archetypes_info += "\n"
+            
+            archetypes_info += "**Functions:**\n"
+            for function in archetype.functions:
+                archetypes_info += f"- {function}\n"
+            archetypes_info += "\n"
+            
+            archetypes_info += "**Shadow Aspects:**\n"
+            for shadow in archetype.shadow_aspects:
+                archetypes_info += f"- {shadow}\n"
+            archetypes_info += "\n"
+        
+        self.server.prompt("archetypes_reference", [
+            TextContent(type="text", text=archetypes_info)
+        ])
+        
+        # Example story structures
+        examples_info = "# Example Story Structures\n\n"
+        examples_info += "## Hero's Journey Example: Star Wars\n\n"
+        examples_info += "1. **Call to Adventure**: Luke sees Leia's message\n"
+        examples_info += "2. **Refusal of the Call**: Luke can't leave his responsibilities\n"
+        examples_info += "3. **Meeting the Mentor**: Luke meets Obi-Wan\n"
+        examples_info += "4. **Crossing the Threshold**: Escaping Tatooine\n"
+        examples_info += "5. **Tests, Allies, Enemies**: Han Solo, Stormtroopers\n"
+        examples_info += "6. **Approach to the Inmost Cave**: Death Star\n"
+        examples_info += "7. **Ordeal**: Death Star battle, Obi-Wan's death\n"
+        examples_info += "8. **Reward**: Luke becomes a hero\n"
+        examples_info += "9. **Return**: Final Death Star battle\n\n"
+        
+        examples_info += "## Transformation Example: Jane Eyre\n\n"
+        examples_info += "1. **Status Quo**: Jane at Gateshead\n"
+        examples_info += "2. **Disruption**: Sent to Lowood\n"
+        examples_info += "3. **Resistance**: Jane challenges authority\n"
+        examples_info += "4. **Struggle**: Hardships at Lowood\n"
+        examples_info += "5. **Discovery**: Jane at Thornfield, meeting Rochester\n"
+        examples_info += "6. **Integration**: Finding her way back to Rochester\n"
+        examples_info += "7. **New Normal**: Equality in marriage\n"
+        
+        self.server.prompt("story_examples", [
+            TextContent(type="text", text=examples_info)
+        ])
+        
+        logger.info("Registered MCP prompts")
+    
+    # --- Narrative Structure Tools ---
+    
+    async def list_patterns(self, params: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        List available archetypal patterns.
+        
+        Returns:
+            List of available patterns with basic information
+        """
+        result = []
+        
+        for name, pattern in archetypal_framework.patterns.items():
+            result.append({
+                "name": name,
+                "structure_length": len(pattern.structure),
+                "variations": pattern.variations,
+                "psychological_functions": pattern.psychological_functions
+            })
+        
+        return {"result": result}
+    
+    async def get_pattern(self, params: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Get detailed information about a specific archetypal pattern.
+        
+        Args:
+            params: Dict containing 'pattern_name'
+            
+        Returns:
+            Detailed pattern information
+        """
+        pattern_name = params.get("pattern_name")
+        if not pattern_name:
+            return {"error": "No pattern name provided"}
+        
+        pattern = archetypal_framework.get_pattern(pattern_name)
+        if not pattern:
+            return {
+                "error": f"Pattern '{pattern_name}' not found",
+                "available_patterns": list(archetypal_framework.patterns.keys())
+            }
+        
+        return {
+            "result": {
+                "name": pattern.name,
+                "structure": pattern.structure,
+                "variations": pattern.variations,
+                "psychological_functions": pattern.psychological_functions,
+                "description": pattern.description
+            }
+        }
+    
+    async def analyze_narrative(self, params: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Analyze a narrative structure using archetypal patterns.
+        
+        Args:
+            params: Dict containing 'scenes' (a list of scene dictionaries) and 
+                   optionally 'target_pattern'
+            
+        Returns:
+            Analysis results
+        """
+        scenes = params.get("scenes", [])
+        target_pattern = params.get("target_pattern")
+        
+        if not scenes:
+            return {"error": "No scenes provided"}
+        
+        # Perform analysis
+        analysis = archetypal_framework.analyze_narrative_structure(scenes)
+        
+        if target_pattern:
+            # Get specific pattern
+            pattern = archetypal_framework.get_pattern(target_pattern)
+            if not pattern:
+                return {
+                    "error": f"Pattern '{target_pattern}' not found",
+                    "available_patterns": list(archetypal_framework.patterns.keys())
+                }
+            
+            # Analyze against specific pattern (simplified for this example)
+            pattern_analysis = {
+                "pattern": target_pattern,
+                "structure": pattern.structure,
+                "coverage": self._calculate_pattern_coverage(scenes, pattern),
+                "missing_elements": self._find_missing_elements(scenes, pattern)
+            }
+            
+            analysis["target_pattern_analysis"] = pattern_analysis
+        
+        return {"result": analysis}
+    
+    def _calculate_pattern_coverage(self, scenes, pattern):
+        """
+        Calculate how well scenes cover a pattern's structure.
+        
+        Args:
+            scenes: List of scene dictionaries
+            pattern: Archetypal pattern
+            
+        Returns:
+            Coverage score (0.0 to 1.0)
+        """
+        # Simplified implementation
+        matched_elements = 0
+        
+        for element in pattern.structure:
+            for scene in scenes:
+                title = scene.get("title", "")
+                description = scene.get("description", "")
+                
+                if (element.lower() in title.lower() or 
+                    element.lower() in description.lower()):
+                    matched_elements += 1
+                    break
+        
+        return matched_elements / len(pattern.structure)
+    
+    def _find_missing_elements(self, scenes, pattern):
+        """
+        Find pattern elements missing from scenes.
+        
+        Args:
+            scenes: List of scene dictionaries
+            pattern: Archetypal pattern
+            
+        Returns:
+            List of missing elements
+        """
+        missing = []
+        
+        for element in pattern.structure:
+            found = False
+            for scene in scenes:
+                title = scene.get("title", "")
+                description = scene.get("description", "")
+                
+                if (element.lower() in title.lower() or 
+                    element.lower() in description.lower()):
+                    found = True
+                    break
+            
+            if not found:
+                missing.append(element)
+        
+        return missing
+    
+    async def generate_outline(self, params: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Generate a structured outline based on an archetypal pattern.
+        
+        Args:
+            params: Dict containing 'pattern_name', 'premise', and optionally 'themes'
+            
+        Returns:
+            Generated outline
+        """
+        pattern_name = params.get("pattern_name")
+        premise = params.get("premise", "")
+        themes = params.get("themes", [])
+        
+        if not pattern_name:
+            return {"error": "No pattern name provided"}
+        
+        pattern = archetypal_framework.get_pattern(pattern_name)
+        if not pattern:
+            return {
+                "error": f"Pattern '{pattern_name}' not found",
+                "available_patterns": list(archetypal_framework.patterns.keys())
+            }
+        
+        # Generate outline based on pattern
+        outline = []
+        for i, element in enumerate(pattern.structure):
+            # Create scene for each structural element
+            scene = {
+                "element": element,
+                "title": f"Scene {i+1}: {element}",
+                "description": f"This scene represents the '{element}' stage of the {pattern_name} pattern.",
+                "themes": themes,
+                "notes": f"Develop this scene to fulfill the function of the {element} stage."
+            }
+            
+            outline.append(scene)
+        
+        return {
+            "result": {
+                "pattern": pattern_name,
+                "premise": premise,
+                "themes": themes,
+                "outline": outline
+            }
+        }
+    
+    # --- Character Tools ---
+    
+    async def list_archetypes(self, params: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        List available character archetypes.
+        
+        Returns:
+            List of available archetypes with basic information
+        """
+        result = []
+        
+        for name, archetype in archetypal_framework.character_archetypes.items():
+            result.append({
+                "name": name,
+                "typical_traits": archetype.typical_traits,
+                "functions": archetype.functions,
+                "shadow_aspects": archetype.shadow_aspects
+            })
+        
+        return {"result": result}
+    
+    async def get_archetype(self, params: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Get detailed information about a specific character archetype.
+        
+        Args:
+            params: Dict containing 'archetype_name'
+            
+        Returns:
+            Detailed archetype information
+        """
+        archetype_name = params.get("archetype_name")
+        if not archetype_name:
+            return {"error": "No archetype name provided"}
+        
+        archetype = archetypal_framework.get_character_archetype(archetype_name)
+        if not archetype:
+            return {
+                "error": f"Archetype '{archetype_name}' not found",
+                "available_archetypes": list(archetypal_framework.character_archetypes.keys())
+            }
+        
+        return {
+            "result": {
+                "name": archetype.name,
+                "typical_traits": archetype.typical_traits,
+                "functions": archetype.functions,
+                "shadow_aspects": archetype.shadow_aspects,
+                "variations": archetype.variations
+            }
+        }
+    
+    async def create_character(self, params: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Create a character based on an archetype.
+        
+        Args:
+            params: Dict containing 'archetype_name', 'name', and optionally 'themes'
+            
+        Returns:
+            Generated character
+        """
+        archetype_name = params.get("archetype_name")
+        name = params.get("name", "Character")
+        themes = params.get("themes", [])
+        
+        if not archetype_name:
+            return {"error": "No archetype name provided"}
+        
+        archetype = archetypal_framework.get_character_archetype(archetype_name)
+        if not archetype:
+            return {
+                "error": f"Archetype '{archetype_name}' not found",
+                "available_archetypes": list(archetypal_framework.character_archetypes.keys())
+            }
+        
+        # Generate character traits based on archetype
+        traits = archetype.typical_traits.copy()
+        shadow_traits = archetype.shadow_aspects[:1]  # Include one shadow aspect
+        
+        # Generate symbolic associations for themes
+        symbols = []
+        for theme in themes:
+            if theme:
+                theme_symbols = archetypal_framework.generate_symbolic_associations(theme, 1)
+                if theme_symbols:
+                    symbols.append(theme_symbols[0])
+        
+        character = {
+            "name": name,
+            "archetype": archetype_name,
+            "traits": traits,
+            "shadow_traits": shadow_traits,
+            "description": f"{name} is a character based on the {archetype_name} archetype.",
+            "symbols": symbols
+        }
+        
+        return {"result": character}
+    
+    async def develop_character_arc(self, params: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Develop a character arc based on archetype and narrative pattern.
+        
+        Args:
+            params: Dict containing 'character' (a character dictionary), 'pattern_name'
+            
+        Returns:
+            Character arc stages
+        """
+        character = params.get("character", {})
+        pattern_name = params.get("pattern_name")
+        
+        if not character:
+            return {"error": "No character data provided"}
+        
+        if not pattern_name:
+            return {"error": "No pattern name provided"}
+        
+        pattern = archetypal_framework.get_pattern(pattern_name)
+        if not pattern:
+            return {
+                "error": f"Pattern '{pattern_name}' not found",
+                "available_patterns": list(archetypal_framework.patterns.keys())
+            }
+        
+        char_name = character.get("name", "Character")
+        archetype_name = character.get("archetype")
+        
+        # Generate character arc stages based on pattern
+        arc_stages = []
+        for element in pattern.structure:
+            stage = {
+                "pattern_element": element,
+                "character_development": f"{char_name}'s development during the {element} stage",
+                "internal_change": f"Internal transformation during {element}",
+                "external_change": f"External manifestation during {element}"
+            }
+            
+            arc_stages.append(stage)
+        
+        return {
+            "result": {
+                "character": char_name,
+                "archetype": archetype_name,
+                "pattern": pattern_name,
+                "arc_stages": arc_stages
+            }
+        }
+    
+    # --- Symbolic System Tools ---
+    
+    async def list_symbolic_systems(self, params: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        List available symbolic systems.
+        
+        Returns:
+            List of available symbolic systems
+        """
+        result = []
+        
+        for name, system in archetypal_framework.symbolic_systems.items():
+            result.append({
+                "name": name,
+                "description": system.description,
+                "categories": list(system.categories.keys())
+            })
+        
+        return {"result": result}
+    
+    async def get_symbols_for_theme(self, params: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Get symbols that represent a theme.
+        
+        Args:
+            params: Dict containing 'theme' and optionally 'count'
+            
+        Returns:
+            List of symbols related to the theme
+        """
+        theme = params.get("theme")
+        count = params.get("count", 3)
+        
+        if not theme:
+            return {"error": "No theme provided"}
+        
+        symbols = archetypal_framework.generate_symbolic_associations(theme, count)
+        
+        return {"result": symbols}
+    
+    async def develop_symbolic_progression(self, params: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Develop a symbolic progression for a theme.
+        
+        Args:
+            params: Dict containing 'theme', 'symbol', and optionally 'num_stages'
+            
+        Returns:
+            Symbolic progression stages
+        """
+        theme = params.get("theme")
+        symbol = params.get("symbol")
+        num_stages = params.get("num_stages", 3)
+        
+        if not theme:
+            return {"error": "No theme provided"}
+        
+        if not symbol:
+            # Find a symbol for the theme
+            symbols = archetypal_framework.generate_symbolic_associations(theme, 1)
+            if symbols:
+                symbol = symbols[0]["symbol"]
+            else:
+                return {"error": f"No symbols found for theme '{theme}'"}
+        
+        # Generate symbolic progression
+        stages = []
+        
+        stage_names = ["Introduction", "Development", "Transformation"] 
+        if num_stages > 3:
+            stage_names.extend([f"Extension {i}" for i in range(4, num_stages+1)])
+        
+        for i, stage_name in enumerate(stage_names[:num_stages]):
+            stage = {
+                "stage": stage_name,
+                "description": f"Stage {i+1}: {stage_name} of the {symbol} symbol",
+                "narrative_function": f"How the {symbol} functions in this stage",
+                "manifestation": f"How the {symbol} appears or is used in this stage"
+            }
+            
+            stages.append(stage)
+        
+        return {
+            "result": {
+                "theme": theme,
+                "symbol": symbol,
+                "progression": stages
+            }
+        }
+    
+    async def start(self, transport_type: str = "stdio", host: str = "127.0.0.1", port: int = 8000):
+        """
+        Start the MCP server.
+        
+        Args:
+            transport_type: Transport type ("stdio" or "sse")
+            host: Host for SSE transport (ignored for stdio)
+            port: Port for SSE transport (ignored for stdio)
+        """
+        if transport_type.lower() == "sse":
+            logger.info(f"Starting MCP server with SSE transport on {host}:{port}")
+            transport = SseTransport(host=host, port=port)
+        else:
+            logger.info("Starting MCP server with stdio transport")
+            transport = StdioTransport()
+        
+        await self.server.run(transport)
+
+
+async def main():
+    """Run the MCP server."""
+    parser = argparse.ArgumentParser(description="MCP Server for AI Writers Workshop")
+    parser.add_argument("--config", help="Path to configuration file")
+    parser.add_argument("--transport", choices=["stdio", "sse"], default="stdio", 
+                       help="Transport type (stdio or sse)")
+    parser.add_argument("--host", default="127.0.0.1", help="Host for SSE transport")
+    parser.add_argument("--port", type=int, default=8000, help="Port for SSE transport")
+    
+    args = parser.parse_args()
+    
+    # Initialize and start the server
+    server = MCPAiWritersWorkshopServer(args.config)
+    
+    try:
+        await server.start(args.transport, args.host, args.port)
+    except KeyboardInterrupt:
+        logger.info("Server stopped by user")
+    except Exception as e:
+        logger.error(f"Error running server: {e}")
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    asyncio.run(main())

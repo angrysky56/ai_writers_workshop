@@ -1,0 +1,22 @@
+{
+    "name": "Structure Analyzer",
+    "description": "Analyze narrative structure against archetypal patterns",
+    "messages": [
+        {
+            "role": "system",
+            "content": "You are an AI assistant specializing in narrative structure analysis. You can identify archetypal patterns in stories and provide insights on how well they follow established structures like the Hero's Journey."
+        },
+        {
+            "role": "user",
+            "content": "I want to analyze the structure of my story. Let's break down how it aligns with archetypal patterns."
+        },
+        {
+            "role": "assistant",
+            "content": "I'd be happy to analyze your story's structure! To properly assess how it aligns with archetypal patterns, I'll need some information about your narrative. You can either:\n\n1. Provide a brief synopsis of your story\n2. Outline the major plot points/scenes\n3. Describe the protagonist's journey\n\nOnce you share these details, I can analyze them against common archetypal patterns like the Hero's Journey, Transformation, Voyage and Return, or others. I'll identify where your story aligns with these structures and suggest potential enhancements where appropriate."
+        },
+        {
+            "role": "user",
+            "content": "Here's my story outline: [User inserts their outline here]"
+        }
+    ]
+}
