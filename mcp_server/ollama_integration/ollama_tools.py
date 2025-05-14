@@ -21,7 +21,7 @@ logger = logging.getLogger("ai_writers_workshop.ollama")
 def _check_ollama_available() -> bool:
     """
     Check if Ollama is available on the system.
-    
+
     Returns:
         Boolean indicating availability
     """
@@ -46,14 +46,14 @@ OLLAMA_AVAILABLE = _check_ollama_available()
 def list_models() -> List[Dict[str, Any]]:
     """
     List available Ollama models.
-    
+
     Returns:
         List of model information dictionaries
     """
     if not OLLAMA_AVAILABLE:
         logger.error("Ollama not available")
         raise RuntimeError("Ollama not available")
-    
+
     try:
         result = subprocess.run(
             ["ollama", "list"],
@@ -61,29 +61,29 @@ def list_models() -> List[Dict[str, Any]]:
             text=True,
             check=True
         )
-        
+
         # Parse the output (format: NAME TAG SIZE MODIFIED)
         models = []
         lines = result.stdout.strip().split('\n')
-        
+
         # Skip the header line
         for line in lines[1:]:
             if not line.strip():
                 continue
-                
+
             parts = line.split()
             if len(parts) >= 4:
                 name = parts[0]
                 tag = parts[1]
                 size = parts[2]
-                
+
                 models.append({
                     "name": name,
                     "tag": tag,
                     "size": size,
                     "model_id": f"{name}:{tag}"
                 })
-        
+
         return models
     except subprocess.CalledProcessError as e:
         logger.error(f"Error listing Ollama models: {e}")
@@ -95,26 +95,26 @@ def list_models() -> List[Dict[str, Any]]:
 
 def run_prompt(
     prompt: str,
-    model: str = "llama3",
-    temperature: float = 0.7,
-    max_tokens: int = 1000
+    model: str = "ai-writer-toolkit-qwen3:30b-a3b",
+    temperature: float = 0.8,
+    max_tokens: int = 8192
 ) -> str:
     """
     Run a prompt with an Ollama model.
-    
+
     Args:
         prompt: The prompt to run
         model: Ollama model to use
         temperature: Sampling temperature (0-1)
         max_tokens: Maximum tokens to generate
-        
+
     Returns:
         Generated text
     """
     if not OLLAMA_AVAILABLE:
         logger.error("Ollama not available")
         raise RuntimeError("Ollama not available")
-    
+
     # Prepare the generate command
     try:
         # Create a JSON request body
@@ -124,7 +124,7 @@ def run_prompt(
             "temperature": temperature,
             "num_predict": max_tokens
         }
-        
+
         # Use the Ollama CLI for simplicity
         result = subprocess.run(
             ["ollama", "run", model, prompt],
@@ -132,7 +132,7 @@ def run_prompt(
             text=True,
             check=True
         )
-        
+
         return result.stdout.strip()
     except subprocess.CalledProcessError as e:
         logger.error(f"Error running Ollama prompt: {e}")
@@ -144,26 +144,26 @@ def run_prompt(
 
 def run_prompt_streaming(
     prompt: str,
-    model: str = "llama3",
-    temperature: float = 0.7,
-    max_tokens: int = 1000
+    model: str = "ai-writer-toolkit-qwen3:30b-a3b",
+    temperature: float = 0.8,
+    max_tokens: int = 8192
 ):
     """
     Run a prompt with an Ollama model in streaming mode.
-    
+
     Args:
         prompt: The prompt to run
         model: Ollama model to use
         temperature: Sampling temperature (0-1)
         max_tokens: Maximum tokens to generate
-        
+
     Yields:
         Generated text chunks
     """
     if not OLLAMA_AVAILABLE:
         logger.error("Ollama not available")
         raise RuntimeError("Ollama not available")
-    
+
     try:
         # Use subprocess with Popen for streaming
         process = subprocess.Popen(
@@ -172,18 +172,18 @@ def run_prompt_streaming(
             stderr=subprocess.PIPE,
             text=True
         )
-        
+
         # Read output line by line
         for line in iter(process.stdout.readline, ''):
             yield line.strip()
-            
+
         # Check for errors
         process.wait()
         if process.returncode != 0:
             stderr = process.stderr.read()
             logger.error(f"Error running Ollama prompt: {stderr}")
             raise RuntimeError(f"Error running Ollama prompt: {stderr}")
-            
+
     except Exception as e:
         logger.error(f"Unexpected error running Ollama prompt: {e}")
         raise
@@ -192,11 +192,11 @@ def run_prompt_streaming(
 def format_combined_prompt(system_prompt: str, user_prompt: str) -> str:
     """
     Format a system prompt and user prompt for Ollama.
-    
+
     Args:
         system_prompt: System instructions
         user_prompt: User query
-        
+
     Returns:
         Formatted prompt
     """
@@ -206,7 +206,7 @@ def format_combined_prompt(system_prompt: str, user_prompt: str) -> str:
 def check_ollama_status() -> Dict[str, Any]:
     """
     Check if Ollama service is running.
-    
+
     Returns:
         Dictionary with status information
     """
@@ -216,7 +216,7 @@ def check_ollama_status() -> Dict[str, Any]:
             "error": "Ollama not installed. Please install Ollama from ollama.ai",
             "install_command": "curl -fsSL https://ollama.com/install.sh | sh"
         }
-    
+
     try:
         result = subprocess.run(
             ["ollama", "list"],
@@ -224,7 +224,7 @@ def check_ollama_status() -> Dict[str, Any]:
             text=True,
             check=False
         )
-        
+
         if result.returncode == 0:
             return {
                 "running": True,
