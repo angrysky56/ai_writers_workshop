@@ -1,9 +1,28 @@
-
+#!/usr/bin/env python3
 """
+Script to fix analyze_narrative directly through the MCQ API.
+"""
+
+import os
+import json
+import shutil
+from pathlib import Path
+
+# Path to the pattern_manager.py file
+pattern_manager_path = "/home/ty/Repositories/ai_workspace/ai_writers_workshop/mcp_server/components/pattern_manager.py"
+
+# Create a backup of the original file
+backup_path = pattern_manager_path + ".bak"
+shutil.copy2(pattern_manager_path, backup_path)
+print(f"Created backup at {backup_path}")
+
+# Fixed content for the pattern_manager.py file
+fixed_content = """
+\"\"\"
 Pattern Management Component for AI Writers Workshop
 
 Handles narrative patterns and their application to story structures.
-"""
+\"\"\"
 
 import os
 import json
@@ -12,15 +31,15 @@ from pathlib import Path
 from typing import Dict, List, Optional, Any, Union
 
 class PatternManager:
-    """Manages narrative patterns and their application to story structures."""
+    \"\"\"Manages narrative patterns and their application to story structures.\"\"\"
     
     def __init__(self, base_dir: Union[str, Path] = "output"):
-        """
+        \"\"\"
         Initialize the pattern manager.
         
         Args:
             base_dir: Base directory for all outputs
-        """
+        \"\"\"
         self.base_dir = Path(base_dir)
         
         # Set up library directory for patterns
@@ -31,7 +50,7 @@ class PatternManager:
         self.patterns = self._load_default_patterns()
     
     def _load_default_patterns(self) -> Dict[str, Dict[str, Any]]:
-        """Load default narrative patterns."""
+        \"\"\"Load default narrative patterns.\"\"\"
         patterns = {
             "heroes_journey": {
                 "name": "Hero's Journey",
@@ -117,12 +136,12 @@ class PatternManager:
         return patterns
     
     def list_patterns(self) -> Dict[str, Dict[str, Any]]:
-        """
+        \"\"\"
         List available narrative patterns.
         
         Returns:
             Dictionary with list of patterns and basic information
-        """
+        \"\"\"
         patterns_summary = {}
         
         # List patterns from library directory
@@ -149,7 +168,7 @@ class PatternManager:
         return {"patterns": patterns_summary}
     
     def get_pattern_details(self, pattern_name: str) -> Dict[str, Any]:
-        """
+        \"\"\"
         Get detailed information about a specific narrative pattern.
         
         Args:
@@ -157,7 +176,7 @@ class PatternManager:
             
         Returns:
             Dictionary with detailed pattern information
-        """
+        \"\"\"
         # Check library directory first
         pattern_path = self.patterns_dir / f"{pattern_name.lower()}.json"
         
@@ -180,7 +199,7 @@ class PatternManager:
                              psychological_functions: Optional[List[str]] = None,
                              examples: Optional[List[str]] = None,
                              based_on: Optional[str] = None) -> Dict[str, Any]:
-        """
+        \"\"\"
         Create a custom narrative pattern.
         
         Args:
@@ -193,7 +212,7 @@ class PatternManager:
             
         Returns:
             Dictionary with pattern information
-        """
+        \"\"\"
         # If based on existing pattern, get its details
         if based_on:
             base_pattern = self.get_pattern_details(based_on)
@@ -240,7 +259,7 @@ class PatternManager:
     def create_hybrid_pattern(self, name: str, description: str, 
                             patterns: Dict[str, float],
                             custom_stages: Optional[List[str]] = None) -> Dict[str, Any]:
-        """
+        \"\"\"
         Create a hybrid pattern from multiple existing patterns.
         
         Args:
@@ -251,7 +270,7 @@ class PatternManager:
             
         Returns:
             Dictionary with pattern information
-        """
+        \"\"\"
         # Validate all patterns exist
         pattern_data_list = []
         for pattern_name in patterns:
@@ -329,7 +348,7 @@ class PatternManager:
     
     def analyze_narrative(self, scenes: List[Dict[str, str]], pattern_name: str,
                         project_id: Optional[str] = None, adherence_level: float = 1.0) -> Dict[str, Any]:
-        """
+        \"\"\"
         Analyze a narrative structure using a specific pattern with flexible matching.
         
         Args:
@@ -340,7 +359,7 @@ class PatternManager:
             
         Returns:
             Dictionary with analysis results
-        """
+        \"\"\"
         # Get the pattern details
         pattern_details = self.get_pattern_details(pattern_name)
         if "error" in pattern_details:
@@ -574,3 +593,11 @@ class PatternManager:
                 **analysis_result,
                 "output_path": f"analyses/{filename}"
             }
+"""
+
+# Write the fixed content to the file
+with open(pattern_manager_path, "w") as f:
+    f.write(fixed_content)
+
+print(f"Successfully updated {pattern_manager_path}")
+print("Restart the server to apply changes")

@@ -1,4 +1,3 @@
-
 """
 Pattern Management Component for AI Writers Workshop
 
@@ -471,7 +470,7 @@ class PatternManager:
                 # Use a more lenient threshold to match scenes with stages
                 min_score_threshold = 1  # Accept any semantic/keyword match
                 
-                if best_score >= min_score_threshold and best_match:
+                if best_score >= min_score_threshold:
                     title = best_match.get("title", best_match.get("scene_title", ""))
                     matched_stages.append({
                         "stage": stage,
@@ -495,21 +494,19 @@ class PatternManager:
             match_quality[quality] = match_quality.get(quality, 0) + 1
             
         match_quality_text = ", ".join([f"{count} {quality}" for quality, count in match_quality.items()])
-        if not match_quality_text:
-            match_quality_text = "no matches"
         
         # Adaptive analysis based on adherence level
         if adherence_level < 1.0:
             analysis_text = (
                 f"The narrative matches {int(match_score * 100)}% of the required stages "
                 f"with {len(matched_stages)} of {required_stage_count} required stages matched "
-                f"({match_quality_text})."
+                f"({match_quality_text} matches, adherence level: {int(adherence_level * 100)}%)."
             )
         else:
             analysis_text = (
                 f"The narrative matches {int(match_score * 100)}% of the {pattern_name} pattern stages "
                 f"with {len(matched_stages)} of {len(stages)} stages matched "
-                f"({match_quality_text})."
+                f"({match_quality_text} matches)."
             )
             
         # Add match details for each matched stage
@@ -538,12 +535,7 @@ class PatternManager:
             from components.project_manager import ProjectManager
             project_manager = ProjectManager(self.base_dir)
             
-            # Fix to handle both title and scene_title fields
-            first_scene_title = "unnamed"
-            if scenes:
-                first_scene = scenes[0]
-                first_scene_title = first_scene.get("title", first_scene.get("scene_title", "unnamed"))
-            
+            first_scene_title = scenes[0].get("title", scenes[0].get("scene_title", "unnamed")) if scenes else "unnamed"
             sanitized_title = first_scene_title.lower().replace(" ", "_")
             
             return project_manager.save_element(
@@ -557,12 +549,7 @@ class PatternManager:
             analysis_dir = self.base_dir / "analyses"
             analysis_dir.mkdir(exist_ok=True, parents=True)
             
-            # Fix to handle both title and scene_title fields
-            first_scene_title = "unnamed"
-            if scenes:
-                first_scene = scenes[0]
-                first_scene_title = first_scene.get("title", first_scene.get("scene_title", "unnamed"))
-            
+            first_scene_title = scenes[0].get("title", scenes[0].get("scene_title", "unnamed")) if scenes else "unnamed"
             sanitized_title = first_scene_title.lower().replace(" ", "_")
             filename = f"analysis-{sanitized_title}-{pattern_name}.json"
             analysis_path = analysis_dir / filename
