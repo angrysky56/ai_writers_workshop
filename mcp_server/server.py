@@ -236,9 +236,26 @@ def create_project(name: str, description: str, project_type: str = "story") -> 
         return {"error": f"Failed to create project: {str(e)}"}
 
 @mcp.tool()
+def get_writing_project(project_id: str) -> Dict[str, Any]:
+    """
+    Get detailed information about a specific writing project.
+    
+    Args:
+        project_id: ID of the project to retrieve
+        
+    Returns:
+        Dictionary with project details
+    """
+    try:
+        return project_manager.get_project(project_id)
+    except Exception as e:
+        logger.error(f"Error retrieving project: {e}")
+        return {"error": f"Failed to retrieve project: {str(e)}"}
+
+@mcp.tool()
 def get_project(project_id: str) -> Dict[str, Any]:
     """
-    Get detailed information about a specific project.
+    Alias for get_writing_project. Get detailed information about a specific project.
     
     Args:
         project_id: ID of the project to retrieve

@@ -255,7 +255,7 @@ You have access to the following AI Writers Workshop tools:
      * `read_graph()`: Explore the entire narrative relationship structure.
 * **Project Management:**
      * `create_project(name, description, project_type)`: Organize narrative elements into projects for better management.
-     * `get_project(project_id)`: Retrieve details about a specific project.
+     * `get_writing_project(project_id)`: Retrieve details about a specific project.
      * `list_outputs()`: Review generated content to ensure emotional and social consistency.
 
 When responding to user requests, follow this structured approach:

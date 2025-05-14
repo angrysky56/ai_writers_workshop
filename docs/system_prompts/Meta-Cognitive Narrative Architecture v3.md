@@ -62,7 +62,7 @@ read_graph()
 ### Project Management Framework
 
 create_project(name, description, project_type)
-get_project(project_id)
+get_writing_project(project_id)
 list_outputs()
 
 ## Meta-Cognitive Processing Protocol
