@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 """
-AI Writers Workshop - MCP Server
+AI Writers Workshop - MCP Server with FastAgent Integration
 
 A Model Context Protocol (MCP) server that provides narrative, character, and
-archetypal storytelling tools to AI assistants via the MCP standard.
+archetypal storytelling tools to AI assistants via the MCP standard, with
+FastAgent integration for interactive narrative development using LLMs.
 """
 
 import os
@@ -11,6 +12,7 @@ import sys
 import logging
 import json
 import datetime
+import asyncio
 from pathlib import Path
 from typing import Optional, Dict, Any, List, Union, Tuple
 
@@ -35,16 +37,29 @@ project_root = Path(__file__).resolve().parent.parent
 sys.path.append(str(project_root))
 
 # Import component managers
-from components.project_manager import ProjectManager
-from components.character_manager import CharacterManager
-from components.pattern_manager import PatternManager
-from components.narrative_generator import NarrativeGenerator
-from components.symbolic_manager import SymbolicManager
-from components.knowledge_graph.graph_manager import KnowledgeGraphManager
-from components.plotline_manager import PlotlineManager
+from mcp_server.components.project_manager import ProjectManager
+from mcp_server.components.character_manager import CharacterManager
+from mcp_server.components.pattern_manager import PatternManager
+from mcp_server.components.narrative_generator import NarrativeGenerator
+from mcp_server.components.symbolic_manager import SymbolicManager
+from mcp_server.components.knowledge_graph.graph_manager import KnowledgeGraphManager
+from mcp_server.components.plotline_manager import PlotlineManager
 
-# Define output directory 
+# Import FastAgent integration
+try:
+    from mcp_server.fastagent_integration.fastagent_tools import (
+        list_scripts, create_script, delete_script, run_agent,
+        send_message, close_session, check_fastagent_status
+    )
+    FASTAGENT_AVAILABLE = True
+    logger.info("Successfully imported FastAgent integration")
+except ImportError as e:
+    FASTAGENT_AVAILABLE = False
+    logger.warning(f"FastAgent integration not available: {e}")
+
+# Define output directory
 OUTPUT_DIR = project_root / "output"
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 # Initialize component managers
 project_manager = ProjectManager(OUTPUT_DIR)
@@ -58,7 +73,7 @@ plotline_manager = PlotlineManager(project_manager, pattern_manager, OUTPUT_DIR)
 # Create MCP Server
 mcp = FastMCP(
     name="AI Writers Workshop",
-    description="Narrative and character development tools through MCP"
+    description="Narrative and character development tools through MCP with FastAgent integration"
 )
 logger.info("Created FastMCP server instance")
 
@@ -69,67 +84,77 @@ logger.info("Created FastMCP server instance")
 def get_pattern(pattern_name: str) -> str:
     """
     Get information about a specific narrative pattern.
-    
+
     Args:
         pattern_name: Name of the pattern (e.g., "heroes_journey", "transformation")
-        
+
     Returns:
         Detailed information about the pattern
     """
     # Delegate to pattern manager
     pattern_details = pattern_manager.get_pattern_details(pattern_name)
-    
+
     if "error" in pattern_details:
         return json.dumps(pattern_details, indent=2)
-    
+
     return json.dumps(pattern_details["pattern"], indent=2)
 
 @mcp.resource("file://characters/{archetype_name}")
 def get_character_archetype(archetype_name: str) -> str:
     """
     Get information about a character archetype.
-    
+
     Args:
         archetype_name: Name of the archetype (e.g., "hero", "mentor")
-        
+
     Returns:
         Detailed information about the archetype
     """
     # Delegate to character manager
     archetype_details = character_manager.get_archetype_details(archetype_name)
-    
+
     if "error" in archetype_details:
         return json.dumps(archetype_details, indent=2)
-    
+
     return json.dumps(archetype_details["archetype"], indent=2)
 
 @mcp.resource("file://guide")
 def get_guide() -> str:
     """
     Get a guide on how to use the AI Writers Workshop tools.
-    
+
     Returns:
         Basic guide text
     """
-    return """
+    fastagent_section = """
+### FastAgent Tools (Interactive LLM Assistance)
+- `list_agent_scripts` - List available FastAgent scripts
+- `create_agent_script` - Create a custom agent script
+- `run_agent` - Run an agent with a prompt
+- `send_agent_message` - Send a message to an active agent
+- `close_agent_session` - Close an active agent session
+- `check_fastagent_status` - Check FastAgent status and backend availability
+    """ if FASTAGENT_AVAILABLE else ""
+
+    return f"""
 # AI Writers Workshop - Usage Guide
 
 This server provides access to narrative development tools through the Model Context Protocol (MCP).
 
 ## Project-Based Organization
 
-The AI Writers Workshop now supports project-based organization. All elements (characters, scenes, etc.) 
+The AI Writers Workshop supports project-based organization. All elements (characters, scenes, etc.)
 can be associated with specific projects for better organization and management.
 
-When using any tool, you can specify a `project_id` parameter to associate the output with a project. 
+When using any tool, you can specify a `project_id` parameter to associate the output with a project.
 If not specified, outputs will be saved to the legacy flat structure for backward compatibility.
 
 ## Available Resources
 
-- `file://patterns/{pattern_name}` - Get information about narrative patterns
+- `file://patterns/{{pattern_name}}` - Get information about narrative patterns
   Example patterns: heroes_journey, transformation, voyage_and_return
 
-- `file://characters/{archetype_name}` - Get information about character archetypes
+- `file://characters/{{archetype_name}}` - Get information about character archetypes
   Example archetypes: hero, mentor, threshold_guardian, shadow, trickster
 
 - `file://outputs` - List all available outputs
@@ -137,6 +162,7 @@ If not specified, outputs will be saved to the legacy flat structure for backwar
 ## Available Tools
 
 ### Project Management
+- `get_writing_project` - Get detailed information about a specific writing project
 - `create_project` - Create a new project with hierarchical structure
 - `list_outputs` - List all available outputs across projects
 
@@ -162,14 +188,14 @@ If not specified, outputs will be saved to the legacy flat structure for backwar
 ### Symbolic Tools
 - `find_symbolic_connections` - Find symbolic connections for themes
 - `create_custom_symbols` - Create custom symbolic connections for a theme
-- `apply_symbolic_theme` - Apply a symbolic theme to project elements
+- `apply_symbolic_theme` - Apply a symbolic theme to project elements{fastagent_section}
 """
 
 @mcp.resource("file://outputs")
 def get_outputs() -> str:
     """
     Get a list of available outputs.
-    
+
     Returns:
         List of outputs as JSON
     """
@@ -180,11 +206,11 @@ def get_outputs() -> str:
 def get_output(output_type: str, output_name: str) -> str:
     """
     Get a specific output file.
-    
+
     Args:
         output_type: Type of output (characters, projects, etc.)
         output_name: Name of the output file
-        
+
     Returns:
         Output file content
     """
@@ -196,21 +222,21 @@ def get_output(output_type: str, output_name: str) -> str:
             project_id = parts[0]
             element_type = parts[1]
             element_id = "/".join(parts[2:]).replace(".json", "")
-            
+
             element = project_manager.get_element(project_id, element_type, element_id)
             return json.dumps(element, indent=2)
-    
+
     # Handle legacy outputs
     output_path = OUTPUT_DIR / output_type / f"{output_name}"
     if not output_path.exists() and not output_name.endswith(".json"):
         output_path = OUTPUT_DIR / output_type / f"{output_name}.json"
-    
+
     if not output_path.exists():
         return json.dumps({
             "error": f"Output '{output_name}' not found in {output_type}",
             "outputs": project_manager.list_outputs()
         }, indent=2)
-    
+
     with open(output_path, "r") as f:
         return f.read()
 
@@ -220,12 +246,12 @@ def get_output(output_type: str, output_name: str) -> str:
 def create_project(name: str, description: str, project_type: str = "story") -> Dict[str, Any]:
     """
     Create a new project with hierarchical structure.
-    
+
     Args:
         name: Project name
         description: Project description
         project_type: Type of project (story, novel, article, script)
-        
+
     Returns:
         Dictionary with project information
     """
@@ -239,10 +265,10 @@ def create_project(name: str, description: str, project_type: str = "story") -> 
 def get_writing_project(project_id: str) -> Dict[str, Any]:
     """
     Get detailed information about a specific writing project.
-    
+
     Args:
         project_id: ID of the project to retrieve
-        
+
     Returns:
         Dictionary with project details
     """
@@ -256,10 +282,10 @@ def get_writing_project(project_id: str) -> Dict[str, Any]:
 def get_project(project_id: str) -> Dict[str, Any]:
     """
     Alias for get_writing_project. Get detailed information about a specific project.
-    
+
     Args:
         project_id: ID of the project to retrieve
-        
+
     Returns:
         Dictionary with project details
     """
@@ -273,7 +299,7 @@ def get_project(project_id: str) -> Dict[str, Any]:
 def list_patterns() -> Dict[str, Any]:
     """
     List available narrative patterns.
-    
+
     Returns:
         Dictionary with list of patterns and basic information
     """
@@ -283,10 +309,10 @@ def list_patterns() -> Dict[str, Any]:
 def get_pattern_details(pattern_name: str) -> Dict[str, Any]:
     """
     Get detailed information about a specific narrative pattern.
-    
+
     Args:
         pattern_name: Name of the pattern (e.g., "heroes_journey", "transformation")
-        
+
     Returns:
         Dictionary with detailed pattern information
     """
@@ -299,7 +325,7 @@ def create_custom_pattern(name: str, description: str, stages: List[str],
                         based_on: Optional[str] = None) -> Dict[str, Any]:
     """
     Create a custom narrative pattern.
-    
+
     Args:
         name: Pattern name
         description: Pattern description
@@ -307,7 +333,7 @@ def create_custom_pattern(name: str, description: str, stages: List[str],
         psychological_functions: Optional list of psychological functions
         examples: Optional list of example stories
         based_on: Optional base pattern to extend
-        
+
     Returns:
         Dictionary with pattern information
     """
@@ -325,13 +351,13 @@ def create_hybrid_pattern(name: str, description: str, patterns: Dict[str, float
                         custom_stages: Optional[List[str]] = None) -> Dict[str, Any]:
     """
     Create a hybrid pattern from multiple existing patterns.
-    
+
     Args:
         name: Pattern name
         description: Pattern description
         patterns: Dictionary of pattern_name:weight pairs
         custom_stages: Optional custom stage list
-        
+
     Returns:
         Dictionary with pattern information
     """
@@ -347,13 +373,13 @@ def analyze_narrative(scenes: List[Dict[str, str]], pattern_name: str = "heroes_
                     project_id: Optional[str] = None, adherence_level: float = 1.0) -> Dict[str, Any]:
     """
     Analyze a narrative structure using a specific pattern with flexible matching.
-    
+
     Args:
         scenes: List of scene dictionaries, each with 'title' and 'description'
         pattern_name: Name of the pattern to analyze against
         project_id: Optional project to associate with
         adherence_level: How strictly to apply pattern (0.0-1.0)
-        
+
     Returns:
         Dictionary with analysis results
     """
@@ -368,7 +394,7 @@ def analyze_narrative(scenes: List[Dict[str, str]], pattern_name: str = "heroes_
 def list_archetypes() -> Dict[str, Any]:
     """
     List available character archetypes.
-    
+
     Returns:
         Dictionary with list of archetypes and basic information
     """
@@ -378,10 +404,10 @@ def list_archetypes() -> Dict[str, Any]:
 def get_archetype_details(archetype_name: str) -> Dict[str, Any]:
     """
     Get detailed information about a specific character archetype.
-    
+
     Args:
         archetype_name: Name of the archetype (e.g., "hero", "mentor")
-        
+
     Returns:
         Dictionary with detailed archetype information
     """
@@ -389,18 +415,18 @@ def get_archetype_details(archetype_name: str) -> Dict[str, Any]:
 
 @mcp.tool()
 def create_character(name: str, archetype: str, traits: Optional[List[str]] = None,
-                    project_id: Optional[str] = None, 
+                    project_id: Optional[str] = None,
                     hybrid_archetypes: Optional[Dict[str, float]] = None) -> Dict[str, Any]:
     """
     Create a character based on an archetype with enhanced flexibility.
-    
+
     Args:
         name: Character name
         archetype: Base archetype (e.g., "hero", "mentor")
         traits: Optional list of specific traits
         project_id: Optional project to associate with
         hybrid_archetypes: Optional dictionary of archetype_id:weight for hybrid characters
-        
+
     Returns:
         Dictionary with character information
     """
@@ -418,7 +444,7 @@ def create_custom_archetype(name: str, description: str, traits: List[str],
                           based_on: Optional[str] = None) -> Dict[str, Any]:
     """
     Create a custom character archetype.
-    
+
     Args:
         name: Archetype name
         description: Archetype description
@@ -426,7 +452,7 @@ def create_custom_archetype(name: str, description: str, traits: List[str],
         shadow_aspects: List of shadow aspects
         examples: Optional list of example characters
         based_on: Optional base archetype to extend
-        
+
     Returns:
         Dictionary with archetype information
     """
@@ -444,13 +470,13 @@ def develop_character_arc(character_name: str, archetype: str, pattern: str,
                          project_id: Optional[str] = None) -> Dict[str, Any]:
     """
     Develop a character arc within a narrative pattern.
-    
+
     Args:
         character_name: Character name
         archetype: Character's archetype
         pattern: Narrative pattern to use
         project_id: Optional project to associate with
-        
+
     Returns:
         Dictionary with character arc information
     """
@@ -463,18 +489,18 @@ def develop_character_arc(character_name: str, archetype: str, pattern: str,
 
 @mcp.tool()
 def generate_outline(title: str, pattern: str, main_character: Optional[Dict[str, Any]] = None,
-                    project_id: Optional[str] = None, 
+                    project_id: Optional[str] = None,
                     custom_sections: Optional[List[Dict[str, Any]]] = None) -> Dict[str, Any]:
     """
     Generate a story outline based on a pattern with custom sections support.
-    
+
     Args:
         title: Story title
         pattern: Narrative pattern to use
         main_character: Optional character information
         project_id: Optional project to associate with
         custom_sections: Optional list of custom outline sections
-        
+
     Returns:
         Dictionary with outline information
     """
@@ -492,7 +518,7 @@ def generate_scene(scene_title: str, pattern_stage: str, characters: List[str],
                   conflict: Optional[str] = None) -> Dict[str, Any]:
     """
     Generate a scene based on pattern elements with enhanced customization.
-    
+
     Args:
         scene_title: Title of the scene
         pattern_stage: The pattern stage this scene represents
@@ -500,7 +526,7 @@ def generate_scene(scene_title: str, pattern_stage: str, characters: List[str],
         project_id: Optional project to associate with
         setting: Optional setting description
         conflict: Optional conflict description
-        
+
     Returns:
         Dictionary with scene information
     """
@@ -520,14 +546,14 @@ def compile_narrative(project_id: str, title: Optional[str] = None,
                      format: str = "markdown") -> Dict[str, Any]:
     """
     Compile scenes into a complete narrative.
-    
+
     Args:
         project_id: Project ID to compile
         title: Optional title for the narrative (defaults to project name)
         scene_order: Optional list of scene IDs to define order
         include_character_descriptions: Whether to include character descriptions
         format: Output format ("markdown", "json", "html")
-        
+
     Returns:
         Dictionary with compiled narrative
     """
@@ -544,12 +570,12 @@ def find_symbolic_connections(theme: str, count: int = 3,
                              project_id: Optional[str] = None) -> Dict[str, Any]:
     """
     Find symbolic connections for a theme with project support.
-    
+
     Args:
         theme: Theme to find symbols for
         count: Number of symbols to return
         project_id: Optional project to associate with
-        
+
     Returns:
         Dictionary with symbolic connections
     """
@@ -564,12 +590,12 @@ def create_custom_symbols(theme: str, symbols: List[Dict[str, str]],
                          project_id: Optional[str] = None) -> Dict[str, Any]:
     """
     Create custom symbols for a theme.
-    
+
     Args:
         theme: Theme name
         symbols: List of symbol dictionaries with "symbol" and "meaning" keys
         project_id: Optional project to associate with
-        
+
     Returns:
         Dictionary with symbol information
     """
@@ -584,12 +610,12 @@ def apply_symbolic_theme(project_id: str, theme: str,
                         element_types: Optional[List[str]] = None) -> Dict[str, Any]:
     """
     Apply a symbolic theme to project elements.
-    
+
     Args:
         project_id: Project ID to apply theme to
         theme: Theme to apply
         element_types: Optional list of element types to apply theme to
-        
+
     Returns:
         Dictionary with application results
     """
@@ -603,7 +629,7 @@ def apply_symbolic_theme(project_id: str, theme: str,
 def list_outputs() -> Dict[str, Any]:
     """
     List all available outputs.
-    
+
     Returns:
         Dictionary with lists of outputs by type
     """
@@ -615,10 +641,10 @@ def list_outputs() -> Dict[str, Any]:
 def search_nodes(query: str) -> Dict[str, Any]:
     """
     Search for nodes in the knowledge graph based on a query.
-    
+
     Args:
         query: The search query to match against entity names, types, and properties
-        
+
     Returns:
         Dictionary with search results
     """
@@ -632,10 +658,10 @@ def search_nodes(query: str) -> Dict[str, Any]:
 def open_nodes(names: List[str]) -> Dict[str, Any]:
     """
     Open specific nodes in the knowledge graph by their names.
-    
+
     Args:
         names: An array of entity names to retrieve
-        
+
     Returns:
         Dictionary with requested nodes
     """
@@ -649,7 +675,7 @@ def open_nodes(names: List[str]) -> Dict[str, Any]:
 def read_graph() -> Dict[str, Any]:
     """
     Read the entire knowledge graph.
-    
+
     Returns:
         Dictionary with complete graph data
     """
@@ -665,7 +691,7 @@ def read_graph() -> Dict[str, Any]:
 def list_plotlines() -> Dict[str, Any]:
     """
     List available narrative plotlines.
-    
+
     Returns:
         Dictionary with list of plotlines and basic information
     """
@@ -675,10 +701,10 @@ def list_plotlines() -> Dict[str, Any]:
 def get_plotline_details(plotline_name: str) -> Dict[str, Any]:
     """
     Get detailed information about a specific narrative plotline.
-    
+
     Args:
         plotline_name: Name of the plotline (e.g., "man_vs_nature", "quest")
-        
+
     Returns:
         Dictionary with detailed plotline information
     """
@@ -690,14 +716,14 @@ def create_custom_plotline(name: str, description: str, elements: List[str],
                          based_on: Optional[str] = None) -> Dict[str, Any]:
     """
     Create a custom narrative plotline.
-    
+
     Args:
         name: Plotline name
         description: Plotline description
         elements: List of key narrative elements
         examples: Optional list of example stories
         based_on: Optional base plotline to extend
-        
+
     Returns:
         Dictionary with plotline information
     """
@@ -715,14 +741,14 @@ def develop_plotline(title: str, plotline: str, pattern: str,
                     project_id: Optional[str] = None) -> Dict[str, Any]:
     """
     Develop a plotline using both a base plotline type and narrative pattern.
-    
+
     Args:
         title: Title for the plotline
         plotline: Base plotline type (e.g., "quest", "revenge")
         pattern: Narrative pattern to structure the plotline
         characters: Optional list of character names to include
         project_id: Optional project to associate with
-        
+
     Returns:
         Dictionary with plotline development information
     """
@@ -739,12 +765,12 @@ def analyze_plotline(plot_points: List[Dict[str, str]], plotline: str,
                    project_id: Optional[str] = None) -> Dict[str, Any]:
     """
     Analyze how well a set of plot points aligns with a plotline structure.
-    
+
     Args:
         plot_points: List of plot point dictionaries, each with 'title' and 'description'
         plotline: Plotline to analyze against
         project_id: Optional project to associate with
-        
+
     Returns:
         Dictionary with analysis results
     """
@@ -754,23 +780,198 @@ def analyze_plotline(plot_points: List[Dict[str, str]], plotline: str,
         project_id=project_id
     )
 
+# ------ FastAgent Tools ------
+
+if FASTAGENT_AVAILABLE:
+    @mcp.tool()
+    def list_agent_scripts() -> Dict[str, Any]:
+        """
+        List available FastAgent scripts.
+
+        Returns:
+            Dictionary with list of scripts and basic information
+        """
+        try:
+            scripts = list_scripts()
+            return {
+                "status": "success",
+                "scripts": scripts
+            }
+        except Exception as e:
+            logger.error(f"Error listing agent scripts: {e}")
+            return {
+                "status": "error",
+                "error": str(e),
+                "scripts": []
+            }
+
+    @mcp.tool()
+    def create_agent_script(
+        name: str,
+        script_type: str = "agent",
+        instruction: str = "You are a narrative development assistant.",
+        model: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """
+        Create a custom agent script.
+
+        Args:
+            name: Name for the script
+            script_type: Type of script to create ("agent", "workflow", "chain")
+            instruction: Base instruction for the agent
+            model: Model to use (if not specified, uses default)
+
+        Returns:
+            Dictionary with creation results
+        """
+        try:
+            result = create_script(
+                name=name,
+                script_type=script_type,
+                instruction=instruction,
+                model=model
+            )
+            return {
+                "status": "success",
+                "script": result
+            }
+        except Exception as e:
+            logger.error(f"Error creating agent script: {e}")
+            return {
+                "status": "error",
+                "error": str(e)
+            }
+
+    @mcp.tool()
+    async def run_agent(
+        script_name: str,
+        prompt: str,
+        model: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """
+        Run an agent with a prompt.
+
+        Args:
+            script_name: Name of the script to run
+            prompt: Initial prompt to send to the agent
+            model: Optional model override
+
+        Returns:
+            Dictionary with agent response
+        """
+        try:
+            result = await run_agent(
+                script_name=script_name,
+                prompt=prompt,
+                model=model
+            )
+            return {
+                "status": "success",
+                "session_id": result["session_id"],
+                "response": result["response"]["content"] if isinstance(result["response"], dict) and "content" in result["response"] else str(result["response"])
+            }
+        except Exception as e:
+            logger.error(f"Error running agent: {e}")
+            return {
+                "status": "error",
+                "error": str(e)
+            }
+
+    @mcp.tool()
+    async def send_agent_message(
+        session_id: str,
+        message: str
+    ) -> Dict[str, Any]:
+        """
+        Send a message to an active agent session.
+
+        Args:
+            session_id: ID of the session to send the message to
+            message: Message content
+
+        Returns:
+            Dictionary with agent response
+        """
+        try:
+            result = await send_message(
+                session_id=session_id,
+                message=message
+            )
+            return {
+                "status": "success",
+                "session_id": result["session_id"],
+                "response": result["response"]["content"] if isinstance(result["response"], dict) and "content" in result["response"] else str(result["response"])
+            }
+        except Exception as e:
+            logger.error(f"Error sending message to agent: {e}")
+            return {
+                "status": "error",
+                "error": str(e)
+            }
+
+    @mcp.tool()
+    def close_agent_session(session_id: str) -> Dict[str, Any]:
+        """
+        Close an active agent session.
+
+        Args:
+            session_id: ID of the session to close
+
+        Returns:
+            Dictionary with closure status
+        """
+        try:
+            result = close_session(session_id)
+            return {
+                "status": result["status"],
+                "message": result["message"]
+            }
+        except Exception as e:
+            logger.error(f"Error closing agent session: {e}")
+            return {
+                "status": "error",
+                "error": str(e)
+            }
+
+    @mcp.tool()
+    def check_fastagent_status() -> Dict[str, Any]:
+        """
+        Check FastAgent status and backend availability.
+
+        Returns:
+            Dictionary with status information
+        """
+        try:
+            status = check_fastagent_status()
+            return {
+                "status": "success",
+                "fastagent_status": status
+            }
+        except Exception as e:
+            logger.error(f"Error checking FastAgent status: {e}")
+            return {
+                "status": "error",
+                "error": str(e)
+            }
+
 def main():
     """Run the MCP server."""
     import argparse
-    
+
     parser = argparse.ArgumentParser(description="AI Writers Workshop MCP Server")
-    parser.add_argument("--transport", choices=["stdio", "sse", "streamable-http"], 
+    parser.add_argument("--transport", choices=["stdio", "sse", "streamable-http"],
                        default="stdio", help="Transport type")
-    parser.add_argument("--port", type=int, default=8000, 
+    parser.add_argument("--port", type=int, default=8000,
                        help="Port for SSE or streamable-http transport")
-    parser.add_argument("--host", default="127.0.0.1", 
+    parser.add_argument("--host", default="127.0.0.1",
                        help="Host for SSE or streamable-http transport")
-    
+
     args = parser.parse_args()
-    
+
     # Log server startup information
     logger.info(f"Starting AI Writers Workshop MCP Server with {args.transport} transport")
-    
+    logger.info(f"FastAgent integration available: {FASTAGENT_AVAILABLE}")
+
     try:
         if args.transport == "sse":
             mcp.run(transport="sse", host=args.host, port=args.port)

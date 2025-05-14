@@ -4,14 +4,14 @@
 echo "Starting AI Writers Workshop MCP Server..."
 
 # Ensure virtual environment is activated
-if [ ! -d "venv" ]; then
+if [ ! -d ".venv" ]; then
     echo "Virtual environment not found!"
     echo "Please run setup.sh first."
     exit 1
 fi
 
 # Activate virtual environment
-source venv/bin/activate
+source .venv/bin/activate
 
 # Run the initialization script if not already run
 if [ ! -d "output/library" ]; then
