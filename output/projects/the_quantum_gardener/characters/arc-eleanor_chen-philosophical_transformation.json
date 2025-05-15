@@ -1,0 +1,74 @@
+{
+  "character_name": "Eleanor Chen",
+  "archetype": "the_liminal",
+  "pattern": "philosophical_transformation",
+  "arc_stages": [
+    {
+      "pattern_stage": "Status Quo",
+      "character_development": "Eleanor Chen's development during the Status Quo stage.",
+      "internal_change": "Internal transformation that occurs during Status Quo.",
+      "external_manifestation": "How Eleanor Chen's change manifests externally during Status Quo."
+    },
+    {
+      "pattern_stage": "Disruption",
+      "character_development": "Eleanor Chen's development during the Disruption stage.",
+      "internal_change": "Internal transformation that occurs during Disruption.",
+      "external_manifestation": "How Eleanor Chen's change manifests externally during Disruption."
+    },
+    {
+      "pattern_stage": "Resistance",
+      "character_development": "Eleanor Chen's development during the Resistance stage.",
+      "internal_change": "Internal transformation that occurs during Resistance.",
+      "external_manifestation": "How Eleanor Chen's change manifests externally during Resistance."
+    },
+    {
+      "pattern_stage": "Struggle",
+      "character_development": "Eleanor Chen's development during the Struggle stage.",
+      "internal_change": "Internal transformation that occurs during Struggle.",
+      "external_manifestation": "How Eleanor Chen's change manifests externally during Struggle."
+    },
+    {
+      "pattern_stage": "Discovery",
+      "character_development": "Eleanor Chen's development during the Discovery stage.",
+      "internal_change": "Internal transformation that occurs during Discovery.",
+      "external_manifestation": "How Eleanor Chen's change manifests externally during Discovery."
+    },
+    {
+      "pattern_stage": "Integration",
+      "character_development": "Eleanor Chen's development during the Integration stage.",
+      "internal_change": "Internal transformation that occurs during Integration.",
+      "external_manifestation": "How Eleanor Chen's change manifests externally during Integration."
+    },
+    {
+      "pattern_stage": "New Normal",
+      "character_development": "Eleanor Chen's development during the New Normal stage.",
+      "internal_change": "Internal transformation that occurs during New Normal.",
+      "external_manifestation": "How Eleanor Chen's change manifests externally during New Normal."
+    },
+    {
+      "pattern_stage": "The Ordinary World",
+      "character_development": "Eleanor Chen's development during the The Ordinary World stage.",
+      "internal_change": "Internal transformation that occurs during The Ordinary World.",
+      "external_manifestation": "How Eleanor Chen's change manifests externally during The Ordinary World."
+    },
+    {
+      "pattern_stage": "The Journey Begins",
+      "character_development": "Eleanor Chen's development during the The Journey Begins stage.",
+      "internal_change": "Internal transformation that occurs during The Journey Begins.",
+      "external_manifestation": "How Eleanor Chen's change manifests externally during The Journey Begins."
+    },
+    {
+      "pattern_stage": "The Strange New World",
+      "character_development": "Eleanor Chen's development during the The Strange New World stage.",
+      "internal_change": "Internal transformation that occurs during The Strange New World.",
+      "external_manifestation": "How Eleanor Chen's change manifests externally during The Strange New World."
+    },
+    {
+      "pattern_stage": "The Return",
+      "character_development": "Eleanor Chen's development during the The Return stage.",
+      "internal_change": "Internal transformation that occurs during The Return.",
+      "external_manifestation": "How Eleanor Chen's change manifests externally during The Return."
+    }
+  ],
+  "created_at": "2025-05-13T02:43:23.324028"
+}

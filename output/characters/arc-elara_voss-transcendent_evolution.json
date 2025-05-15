@@ -1,0 +1,56 @@
+{
+  "character_name": "Elara Voss",
+  "archetype": "hero",
+  "pattern": "transcendent_evolution",
+  "arc_stages": [
+    {
+      "pattern_stage": "Biological Limitation",
+      "character_development": "Elara Voss's development during the Biological Limitation stage.",
+      "internal_change": "Internal transformation that occurs during Biological Limitation.",
+      "external_manifestation": "How Elara Voss's change manifests externally during Biological Limitation."
+    },
+    {
+      "pattern_stage": "Transition Crisis",
+      "character_development": "Elara Voss's development during the Transition Crisis stage.",
+      "internal_change": "Internal transformation that occurs during Transition Crisis.",
+      "external_manifestation": "How Elara Voss's change manifests externally during Transition Crisis."
+    },
+    {
+      "pattern_stage": "Virtual Awakening",
+      "character_development": "Elara Voss's development during the Virtual Awakening stage.",
+      "internal_change": "Internal transformation that occurs during Virtual Awakening.",
+      "external_manifestation": "How Elara Voss's change manifests externally during Virtual Awakening."
+    },
+    {
+      "pattern_stage": "Identity Fragmentation",
+      "character_development": "Elara Voss's development during the Identity Fragmentation stage.",
+      "internal_change": "Internal transformation that occurs during Identity Fragmentation.",
+      "external_manifestation": "How Elara Voss's change manifests externally during Identity Fragmentation."
+    },
+    {
+      "pattern_stage": "Connection Seeking",
+      "character_development": "Elara Voss's development during the Connection Seeking stage.",
+      "internal_change": "Internal transformation that occurs during Connection Seeking.",
+      "external_manifestation": "How Elara Voss's change manifests externally during Connection Seeking."
+    },
+    {
+      "pattern_stage": "Existential Purpose",
+      "character_development": "Elara Voss's development during the Existential Purpose stage.",
+      "internal_change": "Internal transformation that occurs during Existential Purpose.",
+      "external_manifestation": "How Elara Voss's change manifests externally during Existential Purpose."
+    },
+    {
+      "pattern_stage": "Integration",
+      "character_development": "Elara Voss's development during the Integration stage.",
+      "internal_change": "Internal transformation that occurs during Integration.",
+      "external_manifestation": "How Elara Voss's change manifests externally during Integration."
+    },
+    {
+      "pattern_stage": "Transcendence",
+      "character_development": "Elara Voss's development during the Transcendence stage.",
+      "internal_change": "Internal transformation that occurs during Transcendence.",
+      "external_manifestation": "How Elara Voss's change manifests externally during Transcendence."
+    }
+  ],
+  "created_at": "2025-05-14T00:32:38.428759"
+}

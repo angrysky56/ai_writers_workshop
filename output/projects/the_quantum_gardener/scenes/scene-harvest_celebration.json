@@ -1,0 +1,15 @@
+{
+  "scene_title": "Harvest Celebration",
+  "pattern_stage": "New Normal",
+  "characters": [
+    "Eleanor Chen",
+    "Maya Rodriguez",
+    "Town Mayor"
+  ],
+  "setting": "Eleanor's garden on her 80th birthday, now expanded to include much of the town commons. The whole community has gathered for a celebration that doubles as a town meeting, with Maya, now a renowned ecologist, giving a speech about how Eleanor's methods have changed both agricultural science and the town itself.",
+  "goal": "The goal of this scene is to demonstrate the 'New Normal' stage",
+  "conflict": "Eleanor must reconcile her personal journey with her growing public impact as her gardening methods spread beyond Meridian Bay. She struggles with whether to accept an invitation to present her methods at an international conference, wondering if her approach will lose its quantum uncertainty when formalized.",
+  "outcome": "The outcome of this scene moves the story forward by...",
+  "notes": "This scene is a key moment in the New Normal stage of the story.",
+  "created_at": "2025-05-13T02:46:36.648010"
+}

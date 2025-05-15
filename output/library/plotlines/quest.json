@@ -1,0 +1,15 @@
+{
+  "name": "Quest",
+  "description": "Characters journey to find an object, place, or person of significance.",
+  "elements": [
+    "Clear objective or goal",
+    "Journey across challenging terrain (physical or metaphorical)",
+    "Tests and challenges that develop character",
+    "Transformation through the journey"
+  ],
+  "examples": [
+    "The Lord of the Rings",
+    "The Odyssey",
+    "Star Wars"
+  ]
+}

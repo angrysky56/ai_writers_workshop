@@ -1,0 +1,16 @@
+{
+  "name": "Cipher",
+  "archetype": "shadow",
+  "hybrid_archetypes": null,
+  "description": "Cipher is a character based on the shadow archetype.",
+  "traits": [
+    "Former human now fragmented consciousness",
+    "Opposes the containment of consciousness in Dyson spheres",
+    "Believes in pure energy-state existence",
+    "Can infiltrate and manipulate matrix code",
+    "Views love as a biological constraint to be transcended"
+  ],
+  "shadow_aspect": "Destructive",
+  "development_potential": "As a shadow, Cipher has potential for growth through confronting their Destructive tendencies.",
+  "created_at": "2025-05-13T19:31:15.911838"
+}

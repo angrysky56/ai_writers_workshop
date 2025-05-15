@@ -1,0 +1,18 @@
+{
+  "name": "Cipher",
+  "archetype": "shadow",
+  "hybrid_archetypes": null,
+  "description": "Cipher is a character based on the shadow archetype.",
+  "traits": [
+    "Rogue consciousness fragment",
+    "Former upload pioneer",
+    "Isolationist",
+    "Digital entropy accelerator",
+    "Information anarchist",
+    "Identity purist",
+    "Quantum encryption specialist"
+  ],
+  "shadow_aspect": "Destructive",
+  "development_potential": "As a shadow, Cipher has potential for growth through confronting their Destructive tendencies.",
+  "created_at": "2025-05-14T00:30:21.328387"
+}

@@ -132,6 +132,16 @@ read_graph()
 
 ### Project Management Framework
 
+# List all writing projects
+list_writing_projects()
+
+# Generate a story from a project
+write_project_story(
+    project_id="your_project_id",
+    format="markdown",
+    include_character_details=True,
+    prose_style="descriptive"
+)
 create_writing_project(name, description, project_type)
 get_writing_project(project_id)
 list_outputs()

@@ -1,0 +1,186 @@
+{
+  "name": "Post-Biological Existence",
+  "description": "A narrative exploring consciousness transfer to Dyson spheres forming a universal matrix",
+  "type": "story",
+  "created_at": "2025-05-13T15:23:12.660740",
+  "modified_at": "2025-05-15T02:25:59.475823",
+  "primary_pattern": null,
+  "themes": [],
+  "main_characters": [],
+  "secondary_characters": [],
+  "word_count": 0,
+  "status": "in_progress",
+  "notes": "",
+  "elements": {
+    "characters": [
+      {
+        "id": "elara_voss_hero",
+        "name": "Elara Voss",
+        "path": "projects/post_biological_existence/characters/elara_voss_hero.json",
+        "created_at": "2025-05-13T19:31:02.881698"
+      },
+      {
+        "id": "nexus_9_mentor",
+        "name": "Nexus-9",
+        "path": "projects/post_biological_existence/characters/nexus_9_mentor.json",
+        "created_at": "2025-05-13T19:31:08.363856"
+      },
+      {
+        "id": "cipher_shadow",
+        "name": "Cipher",
+        "path": "projects/post_biological_existence/characters/cipher_shadow.json",
+        "created_at": "2025-05-13T19:31:15.911838"
+      }
+    ],
+    "scenes": [
+      {
+        "id": "scene-quantum_awakening",
+        "name": "scene-quantum_awakening",
+        "path": "projects/post_biological_existence/scenes/scene-quantum_awakening.json",
+        "created_at": "2025-05-13T19:49:23.001265"
+      },
+      {
+        "id": "scene-encryption_confrontation",
+        "name": "scene-encryption_confrontation",
+        "path": "projects/post_biological_existence/scenes/scene-encryption_confrontation.json",
+        "created_at": "2025-05-13T19:32:12.263246"
+      },
+      {
+        "id": "scene-cognitive_symbiosis",
+        "name": "scene-cognitive_symbiosis",
+        "path": "projects/post_biological_existence/scenes/scene-cognitive_symbiosis.json",
+        "created_at": "2025-05-13T19:32:21.028346"
+      },
+      {
+        "id": "scene-terminal_diagnosis",
+        "name": "scene-terminal_diagnosis",
+        "path": "projects/post_biological_existence/scenes/scene-terminal_diagnosis.json",
+        "created_at": "2025-05-13T19:31:52.012210"
+      },
+      {
+        "id": "scene-consciousness_upload",
+        "name": "scene-consciousness_upload",
+        "path": "projects/post_biological_existence/scenes/scene-consciousness_upload.json",
+        "created_at": "2025-05-13T19:31:58.668930"
+      },
+      {
+        "id": "scene-memory_cascade",
+        "name": "scene-memory_cascade",
+        "path": "projects/post_biological_existence/scenes/scene-memory_cascade.json",
+        "created_at": "2025-05-13T19:32:08.095924"
+      },
+      {
+        "id": "scene-quantum_entanglement",
+        "name": "scene-quantum_entanglement",
+        "path": "projects/post_biological_existence/scenes/scene-quantum_entanglement.json",
+        "created_at": "2025-05-13T19:51:01.888556"
+      },
+      {
+        "id": "scene-matrix_expansion",
+        "name": "scene-matrix_expansion",
+        "path": "projects/post_biological_existence/scenes/scene-matrix_expansion.json",
+        "created_at": "2025-05-13T19:32:25.670428"
+      },
+      {
+        "id": "scene-the_kaleidoscope_mind",
+        "name": "scene-the_kaleidoscope_mind",
+        "path": "projects/post_biological_existence/scenes/scene-the_kaleidoscope_mind.json",
+        "created_at": "2025-05-15T02:25:47.153089"
+      }
+    ],
+    "outlines": [
+      {
+        "id": "outline-echoes_in_the_matrix",
+        "name": "Echoes in the Matrix",
+        "path": "projects/post_biological_existence/outlines/outline-echoes_in_the_matrix.json",
+        "created_at": "2025-05-13T19:31:33.384923"
+      }
+    ],
+    "analyses": [
+      {
+        "id": "analysis-terminal_diagnosis-transcendent_evolution",
+        "name": "analysis-terminal_diagnosis-transcendent_evolution",
+        "path": "projects/post_biological_existence/analyses/analysis-terminal_diagnosis-transcendent_evolution.json",
+        "created_at": "2025-05-13T19:41:33.830976"
+      }
+    ],
+    "symbols": [
+      {
+        "id": "symbols-quantum_entanglement",
+        "name": "symbols-quantum_entanglement",
+        "path": "projects/post_biological_existence/symbols/symbols-quantum_entanglement.json",
+        "created_at": "2025-05-13T19:30:21.658851"
+      },
+      {
+        "id": "symbols-fractal_patterns",
+        "name": "symbols-fractal_patterns",
+        "path": "projects/post_biological_existence/symbols/symbols-fractal_patterns.json",
+        "created_at": "2025-05-13T16:18:14.637328"
+      },
+      {
+        "id": "symbols-collective_resonance",
+        "name": "symbols-collective_resonance",
+        "path": "projects/post_biological_existence/symbols/symbols-collective_resonance.json",
+        "created_at": "2025-05-13T16:18:14.642654"
+      },
+      {
+        "id": "symbols-post_biological_existence",
+        "name": "symbols-post_biological_existence",
+        "path": "projects/post_biological_existence/symbols/symbols-post_biological_existence.json",
+        "created_at": "2025-05-13T19:30:36.788425"
+      },
+      {
+        "id": "symbols-love",
+        "name": "symbols-love",
+        "path": "projects/post_biological_existence/symbols/symbols-love.json",
+        "created_at": "2025-05-13T19:50:48.007949"
+      },
+      {
+        "id": "symbols-post_biological_love",
+        "name": "symbols-post_biological_love",
+        "path": "projects/post_biological_existence/symbols/symbols-post_biological_love.json",
+        "created_at": "2025-05-13T19:50:54.762736"
+      },
+      {
+        "id": "symbols-identity_fragmentation",
+        "name": "symbols-identity_fragmentation",
+        "path": "projects/post_biological_existence/symbols/symbols-identity_fragmentation.json",
+        "created_at": "2025-05-15T02:25:53.940211"
+      }
+    ],
+    "drafts": [
+      {
+        "id": "draft-20250513165108",
+        "name": "Echoes in the Matrix",
+        "path": "projects/post_biological_existence/drafts/draft-20250513165108.json",
+        "created_at": "2025-05-13T16:51:08.922069"
+      },
+      {
+        "id": "draft-20250513193239",
+        "name": "Echoes in the Matrix",
+        "path": "projects/post_biological_existence/drafts/draft-20250513193239.json",
+        "created_at": "2025-05-13T19:32:39.478336"
+      }
+    ],
+    "stories": [
+      {
+        "id": "story-20250515014835",
+        "name": "Post-Biological Existence",
+        "path": "projects/post_biological_existence/stories/story-20250515014835.json",
+        "created_at": "2025-05-15T01:48:35.856272"
+      },
+      {
+        "id": "story-20250515015432",
+        "name": "Post-Biological Existence",
+        "path": "projects/post_biological_existence/stories/story-20250515015432.json",
+        "created_at": "2025-05-15T01:54:32.520730"
+      },
+      {
+        "id": "story-20250515022559",
+        "name": "Post-Biological Existence",
+        "path": "projects/post_biological_existence/stories/story-20250515022559.json",
+        "created_at": "2025-05-15T02:25:59.475817"
+      }
+    ]
+  }
+}

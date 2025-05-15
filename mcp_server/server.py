@@ -163,7 +163,7 @@ If not specified, outputs will be saved to the legacy flat structure for backwar
 
 ### Project Management
 - `get_writing_project` - Get detailed information about a specific writing project
-- `create_project` - Create a new project with hierarchical structure
+- `create_writing_project` - Create a new project with hierarchical structure
 - `list_outputs` - List all available outputs across projects
 
 ### Pattern Tools
@@ -243,7 +243,7 @@ def get_output(output_type: str, output_name: str) -> str:
 # ---- Tools ----
 
 @mcp.tool()
-def create_project(name: str, description: str, project_type: str = "story") -> Dict[str, Any]:
+def create_writing_project(name: str, description: str, project_type: str = "story") -> Dict[str, Any]:
     """
     Create a new project with hierarchical structure.
 
@@ -278,22 +278,7 @@ def get_writing_project(project_id: str) -> Dict[str, Any]:
         logger.error(f"Error retrieving project: {e}")
         return {"error": f"Failed to retrieve project: {str(e)}"}
 
-@mcp.tool()
-def get_project(project_id: str) -> Dict[str, Any]:
-    """
-    Alias for get_writing_project. Get detailed information about a specific project.
 
-    Args:
-        project_id: ID of the project to retrieve
-
-    Returns:
-        Dictionary with project details
-    """
-    try:
-        return project_manager.get_project(project_id)
-    except Exception as e:
-        logger.error(f"Error retrieving project: {e}")
-        return {"error": f"Failed to retrieve project: {str(e)}"}
 
 @mcp.tool()
 def list_patterns() -> Dict[str, Any]:
@@ -635,6 +620,53 @@ def list_outputs() -> Dict[str, Any]:
     """
     return project_manager.list_outputs()
 
+@mcp.tool()
+def list_writing_projects() -> Dict[str, List[Dict[str, str]]]:
+    """
+    List all writing projects with basic information.
+    
+    This is a simplified version of list_projects() that returns
+    only essential project information without requiring metadata or names.
+    
+    Returns:
+        Dictionary with list of projects containing minimal info
+    """
+    try:
+        return project_manager.list_writing_projects()
+    except Exception as e:
+        logger.error(f"Error listing writing projects: {e}")
+        return {"error": f"Failed to list writing projects: {str(e)}", "projects": []}
+
+@mcp.tool()
+def write_project_story(project_id: str, format: str = "markdown", 
+                      include_character_details: bool = True,
+                      prose_style: Optional[str] = None) -> Dict[str, Any]:
+    """
+    Generate a complete story narrative based on project elements.
+    
+    This method goes beyond compile_narrative by generating polished prose
+    that connects the scenes and integrates character arcs into a cohesive story.
+    
+    Args:
+        project_id: Project ID to generate story for
+        format: Output format ("markdown", "json", "html")
+        include_character_details: Whether to include detailed character information
+        prose_style: Optional style guide for prose (e.g., "descriptive", "concise", "literary")
+        
+    Returns:
+        Dictionary with complete story and metadata
+    """
+    try:
+        return narrative_generator.write_project_story(
+            project_id=project_id,
+            format=format,
+            include_character_details=include_character_details,
+            prose_style=prose_style
+        )
+    except Exception as e:
+        logger.error(f"Error writing project story: {e}")
+        return {"error": f"Failed to write project story: {str(e)}", "project_id": project_id}
+
 # ----- Knowledge Graph Tools -----
 
 @mcp.tool()
@@ -860,11 +892,26 @@ if FASTAGENT_AVAILABLE:
             Dictionary with agent response
         """
         try:
+            # Call the underlying function
             result = await run_agent(
                 script_name=script_name,
                 prompt=prompt,
                 model=model
             )
+            
+            # Validate the result has the expected structure
+            if not isinstance(result, dict):
+                return {
+                    "status": "error",
+                    "error": "Invalid response format from agent"
+                }
+                
+            if "session_id" not in result:
+                return {
+                    "status": "error",
+                    "error": "Missing session_id in response"
+                }
+                
             return {
                 "status": "success",
                 "session_id": result["session_id"],
@@ -874,7 +921,7 @@ if FASTAGENT_AVAILABLE:
             logger.error(f"Error running agent: {e}")
             return {
                 "status": "error",
-                "error": str(e)
+                "error": f"Error running agent: {str(e)}"
             }
 
     @mcp.tool()

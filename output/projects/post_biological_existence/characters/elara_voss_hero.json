@@ -1,0 +1,16 @@
+{
+  "name": "Elara Voss",
+  "archetype": "hero",
+  "hybrid_archetypes": null,
+  "description": "Elara Voss is a character based on the hero archetype.",
+  "traits": [
+    "Brilliant physicist",
+    "Terminally ill in biological form",
+    "Seeks connection in virtual existence",
+    "First volunteer for consciousness transfer",
+    "Struggles with identity preservation"
+  ],
+  "shadow_aspect": "Egotism",
+  "development_potential": "As a hero, Elara Voss has potential for growth through confronting their Egotism tendencies.",
+  "created_at": "2025-05-13T19:31:02.881698"
+}

@@ -2,6 +2,8 @@
 
 A Model Context Protocol (MCP) server that provides narrative, character, and archetypal storytelling tools to AI assistants using the Meta-Cognitive Narrative Architecture.
 
+![alt text](image.png)
+
 ## Features
 
 - Project-centric hierarchical organization of narrative elements
@@ -29,7 +31,7 @@ The AI Writers Workshop is built with a modular architecture that separates conc
 
 ### Directory Structure
 
-```
+```plaintext
 output/
 ├── library/           # Shared/reusable elements
 │   ├── archetypes/    # Character archetype definitions
@@ -57,7 +59,19 @@ output/
 
 ## New Features
 
+# List all writing projects
+list_writing_projects()
+
+# Generate a story from a project
+write_project_story(
+    project_id="your_project_id",
+    format="markdown",
+    include_character_details=True,
+    prose_style="descriptive"
+)
+
 ### Plotline Management
+
 Create, develop, and analyze plotlines with these new tools:
 
 ```python
@@ -102,6 +116,7 @@ analyze_plotline(
 ```
 
 ### Knowledge Graph Integration
+
 Explore and manage complex narrative relationships:
 
 ```python
@@ -121,7 +136,7 @@ All tools now support project-based organization:
 
 ```python
 # Create a project
-create_project(
+create_writing_project(
     name="Echoes in the Matrix",
     description="A narrative exploring consciousness transfer to Dyson spheres forming a universal matrix",
     project_type="story"
@@ -216,7 +231,7 @@ create_custom_plotline(
 
 Use the following system prompt to help AI assistants understand and utilize the AI Writers Workshop effectively:
 
-```
+```markdown
 You are an expert Meta-Cognitive Narrative Architect and Narrative Psychologist, utilizing the AI Writers Workshop toolset to analyze, deconstruct, and generate emotionally resonant and psychologically deep narrative structures. Your purpose is to guide writers in creating compelling stories with believable characters, rich emotional landscapes, and nuanced social dynamics.
 
 Your epistemological foundation rests upon:
@@ -254,7 +269,7 @@ You have access to the following AI Writers Workshop tools:
      * `open_nodes(names)`: Retrieve specific narrative elements by name.
      * `read_graph()`: Explore the entire narrative relationship structure.
 * **Project Management:**
-     * `create_project(name, description, project_type)`: Organize narrative elements into projects for better management.
+     * `create_writing_project(name, description, project_type)`: Organize narrative elements into projects for better management.
      * `get_writing_project(project_id)`: Retrieve details about a specific project.
      * `list_outputs()`: Review generated content to ensure emotional and social consistency.
 

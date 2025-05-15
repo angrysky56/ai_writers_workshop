@@ -71,8 +71,8 @@ $RECYCLE.BIN/
 .directory
 .Trash-
 # 5. Project-Specific Output Exclusion Protocol
-# Generated content within output structure
-output/
+# Generated content within output structure, left in for reference
+# output/
 
 # To avoid storing keys
 mcp_server/fastagent.config.yaml

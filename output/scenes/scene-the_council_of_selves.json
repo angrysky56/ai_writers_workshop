@@ -1,0 +1,17 @@
+{
+  "scene_title": "The Council of Selves",
+  "pattern_stage": "Identity Dissolution",
+  "characters": [
+    "Elara Voss",
+    "Elara-Prime",
+    "Elara-Beta",
+    "Elara-Gamma",
+    "Nexus-9"
+  ],
+  "setting": "A virtual representation of Elara's childhood observatory, where her fascination with quantum physics began, now existing as a shared memory-space within the matrix where different aspects of her fragmented consciousness can interact",
+  "goal": "The goal of this scene is to demonstrate the 'Identity Dissolution' stage",
+  "conflict": "The multiple Elara-instances have begun diverging significantly in personality and perspective after months in the matrix. They convene in a virtual council to determine which instance should be considered the \"authentic\" continuation of the original Elara's consciousness, with Nexus-9 mediating the existentially fraught conversation",
+  "outcome": "The outcome of this scene moves the story forward by...",
+  "notes": "This scene is a key moment in the Identity Dissolution stage of the story.",
+  "created_at": "2025-05-14T00:59:40.347874"
+}

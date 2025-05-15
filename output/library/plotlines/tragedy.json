@@ -1,0 +1,15 @@
+{
+  "name": "Tragedy",
+  "description": "A character's flaws or choices lead to their downfall.",
+  "elements": [
+    "Character with a fatal flaw",
+    "Rise in fortune or status",
+    "Critical error in judgment",
+    "Downfall and realization"
+  ],
+  "examples": [
+    "Romeo and Juliet",
+    "Macbeth",
+    "The Great Gatsby"
+  ]
+}

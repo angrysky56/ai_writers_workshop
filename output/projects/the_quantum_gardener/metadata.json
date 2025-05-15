@@ -1,0 +1,112 @@
+{
+  "name": "The Quantum Gardener",
+  "description": "A story about a former quantum physicist who discovers new principles of existence through gardening, showing how embracing uncertainty leads to beautiful emergent patterns.",
+  "type": "story",
+  "created_at": "2025-05-13T02:42:20.184289",
+  "modified_at": "2025-05-13T02:47:16.962745",
+  "primary_pattern": null,
+  "themes": [],
+  "main_characters": [],
+  "secondary_characters": [],
+  "word_count": 0,
+  "status": "in_progress",
+  "notes": "",
+  "elements": {
+    "characters": [
+      {
+        "id": "eleanor_chen_the_liminal",
+        "name": "Eleanor Chen",
+        "path": "projects/the_quantum_gardener/characters/eleanor_chen_the_liminal.json",
+        "created_at": "2025-05-13T02:42:44.535619"
+      },
+      {
+        "id": "maya_rodriguez_herald",
+        "name": "Maya Rodriguez",
+        "path": "projects/the_quantum_gardener/characters/maya_rodriguez_herald.json",
+        "created_at": "2025-05-13T02:42:48.918001"
+      },
+      {
+        "id": "arc-maya_rodriguez-philosophical_transformation",
+        "name": "arc-maya_rodriguez-philosophical_transformation",
+        "path": "projects/the_quantum_gardener/characters/arc-maya_rodriguez-philosophical_transformation.json",
+        "created_at": "2025-05-13T02:42:55.917591"
+      },
+      {
+        "id": "arc-eleanor_chen-philosophical_transformation",
+        "name": "arc-eleanor_chen-philosophical_transformation",
+        "path": "projects/the_quantum_gardener/characters/arc-eleanor_chen-philosophical_transformation.json",
+        "created_at": "2025-05-13T02:43:23.324028"
+      }
+    ],
+    "scenes": [
+      {
+        "id": "scene-the_language_of_bees",
+        "name": "scene-the_language_of_bees",
+        "path": "projects/the_quantum_gardener/scenes/scene-the_language_of_bees.json",
+        "created_at": "2025-05-13T02:44:09.991887"
+      },
+      {
+        "id": "scene-academic_reconciliation",
+        "name": "scene-academic_reconciliation",
+        "path": "projects/the_quantum_gardener/scenes/scene-academic_reconciliation.json",
+        "created_at": "2025-05-13T02:44:19.109484"
+      },
+      {
+        "id": "scene-harvest_celebration",
+        "name": "scene-harvest_celebration",
+        "path": "projects/the_quantum_gardener/scenes/scene-harvest_celebration.json",
+        "created_at": "2025-05-13T02:46:36.648010"
+      },
+      {
+        "id": "scene-broken_equations",
+        "name": "scene-broken_equations",
+        "path": "projects/the_quantum_gardener/scenes/scene-broken_equations.json",
+        "created_at": "2025-05-13T02:46:43.359222"
+      },
+      {
+        "id": "scene-probability_waves",
+        "name": "scene-probability_waves",
+        "path": "projects/the_quantum_gardener/scenes/scene-probability_waves.json",
+        "created_at": "2025-05-13T02:46:50.756882"
+      }
+    ],
+    "outlines": [
+      {
+        "id": "outline-the_quantum_gardener",
+        "name": "The Quantum Gardener",
+        "path": "projects/the_quantum_gardener/outlines/outline-the_quantum_gardener.json",
+        "created_at": "2025-05-13T02:43:51.225855"
+      }
+    ],
+    "analyses": [
+      {
+        "id": "analysis-broken_equations-recursive_fragmentation",
+        "name": "analysis-broken_equations-recursive_fragmentation",
+        "path": "projects/the_quantum_gardener/analyses/analysis-broken_equations-recursive_fragmentation.json",
+        "created_at": "2025-05-13T02:47:11.685952"
+      }
+    ],
+    "symbols": [
+      {
+        "id": "symbols-quantum_gardening",
+        "name": "symbols-quantum_gardening",
+        "path": "projects/the_quantum_gardener/symbols/symbols-quantum_gardening.json",
+        "created_at": "2025-05-13T02:43:39.233102"
+      }
+    ],
+    "drafts": [
+      {
+        "id": "draft-20250513024656",
+        "name": "The Quantum Gardener",
+        "path": "projects/the_quantum_gardener/drafts/draft-20250513024656.json",
+        "created_at": "2025-05-13T02:46:56.895126"
+      },
+      {
+        "id": "draft-20250513024716",
+        "name": "The Quantum Gardener: A Tale of Uncertainty and Growth",
+        "path": "projects/the_quantum_gardener/drafts/draft-20250513024716.json",
+        "created_at": "2025-05-13T02:47:16.962306"
+      }
+    ]
+  }
+}

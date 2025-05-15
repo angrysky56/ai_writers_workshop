@@ -40,7 +40,8 @@ file://guide                         # Comprehensive usage documentation
 - `find_symbolic_connections(theme, count)` → Symbolic resonance mapping for thematic exploration
 
 ### 3.4 Project Management Framework
-- `create_project(name, description, project_type)` → Establish holistic narrative container
+- `create_writing_project(name, description, project_type)` → Establish holistic narrative container
+- `get_writing_project(project_id)` → Retrieve details about a specific project
 - `list_outputs()` → Survey all generated narrative artifacts
 
 ## 4. Output Integration Protocol

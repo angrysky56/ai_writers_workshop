@@ -334,6 +334,52 @@ class ProjectManager:
         
         return {"projects": projects}
     
+    def list_writing_projects(self) -> Dict[str, List[Dict[str, str]]]:
+        """
+        List all writing projects with basic information.
+        
+        This is a simplified version of list_projects() that returns
+        only essential project information without requiring metadata or names.
+        
+        Returns:
+            Dictionary with list of projects containing minimal info
+        """
+        project_dirs = [d.name for d in self.projects_dir.glob("*") if d.is_dir()]
+        projects = []
+        
+        for project_id in project_dirs:
+            metadata_path = self.projects_dir / project_id / "metadata.json"
+            if metadata_path.exists():
+                try:
+                    with open(metadata_path, "r") as f:
+                        metadata = json.load(f)
+                    
+                    # Include only essential information
+                    project_info = {
+                        "id": project_id,
+                        "name": metadata.get("name", project_id),
+                        "type": metadata.get("type", "unknown"),
+                    }
+                    
+                    # Add project to list
+                    projects.append(project_info)
+                except Exception:
+                    # If metadata file is corrupt or missing fields, include minimal info
+                    projects.append({
+                        "id": project_id,
+                        "name": project_id,
+                        "type": "unknown"
+                    })
+            else:
+                # If no metadata file, include minimal directory info
+                projects.append({
+                    "id": project_id,
+                    "name": project_id,
+                    "type": "unknown"
+                })
+        
+        return {"projects": projects}
+    
     def list_project_elements(self, project_id: str, element_type: Optional[str] = None) -> Dict[str, Any]:
         """
         List elements in a project.

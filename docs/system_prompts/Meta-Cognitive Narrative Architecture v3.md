@@ -61,7 +61,7 @@ read_graph()
 
 ### Project Management Framework
 
-create_project(name, description, project_type)
+create_writing_project(name, description, project_type)
 get_writing_project(project_id)
 list_outputs()
 

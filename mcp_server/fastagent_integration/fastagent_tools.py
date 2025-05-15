@@ -508,9 +508,9 @@ def get_tool_handler(tool_name: str) -> Optional[Callable]:
     # These are dynamically looked up to avoid import issues
     
     # Project Management tools
-    if tool_name == "create_project":
+    if tool_name == "create_writing_project":
         return _get_project_manager().create_project
-    elif tool_name == "get_project":
+    elif tool_name == "get_writing_project":
         return _get_project_manager().get_project
     elif tool_name == "list_outputs":
         return _get_project_manager().list_outputs
@@ -1192,7 +1192,7 @@ def define_all_tools() -> List[Dict[str, Any]]:
         {
             "type": "function",
             "function": {
-                "name": "create_project",
+                "name": "create_writing_project",
                 "description": "Create a new project with hierarchical structure",
                 "parameters": {
                     "type": "object",
@@ -1218,8 +1218,8 @@ def define_all_tools() -> List[Dict[str, Any]]:
         {
             "type": "function",
             "function": {
-                "name": "get_project",
-                "description": "Get detailed information about a specific project",
+                "name": "get_writing_project",
+                "description": "Get detailed information about a specific writing project",
                 "parameters": {
                     "type": "object",
                     "properties": {

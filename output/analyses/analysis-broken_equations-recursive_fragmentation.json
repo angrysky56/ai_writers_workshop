@@ -1,0 +1,19 @@
+{
+  "pattern": "recursive_fragmentation",
+  "adherence_level": 0.8,
+  "required_stages": 6,
+  "matched_stages": [],
+  "missing_stages": [
+    "The Middle",
+    "Fragmentation",
+    "Echo",
+    "The Middle Again But Different",
+    "Recursion",
+    "Unexpected Beginning",
+    "Simultaneous Endings",
+    "Return to Middle"
+  ],
+  "match_score": 0.0,
+  "analysis": "The narrative matches 0% of the required stages with 0 of 6 required stages matched (adherence level: 80%).",
+  "created_at": "2025-05-13T02:47:11.685952"
+}
